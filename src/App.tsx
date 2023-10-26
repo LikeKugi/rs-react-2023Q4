@@ -5,10 +5,17 @@ import {
   setDataToLocalStorage,
 } from '@/services/localStorageServices';
 import Form from '@/components/Form/Form';
+import { fetchData } from '@/api/api';
+import { ApiConstants } from '@/api/api.constants';
+import { IArtwork } from '@/types/api/IArtwork';
+import { IBaseTypeResponse } from '@/types/api/types';
 
 interface IAppState {
   toThrow: boolean;
   query: string;
+  limit: number;
+  page: number;
+  artworks: IArtwork[];
 }
 
 class App extends Component<object, IAppState> {
@@ -17,11 +24,15 @@ class App extends Component<object, IAppState> {
     this.state = {
       toThrow: false,
       query: '',
+      limit: 10,
+      page: 1,
+      artworks: [],
     };
     this.throwError = this.throwError.bind(this);
     this.handleThrow = this.handleThrow.bind(this);
     this.changeQuery = this.changeQuery.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
+    this.placeArtWorksData = this.placeArtWorksData.bind(this);
   }
 
   public componentDidUpdate() {
@@ -38,6 +49,26 @@ class App extends Component<object, IAppState> {
         query: queryObject.query,
       }));
     }
+    const params = new URLSearchParams({
+      limit: `${this.state.limit}`,
+      page: `${this.state.page}`,
+    });
+    (
+      fetchData(
+        `${ApiConstants.BASE}${ApiConstants.ARTWORKS}?${params}`,
+      ) as Promise<IBaseTypeResponse>
+    )
+      .then((a) => {
+        this.placeArtWorksData(a.data);
+      })
+      .catch((e) => console.log(e));
+  }
+
+  placeArtWorksData(data: IArtwork[]) {
+    this.setState((prevState) => ({
+      ...prevState,
+      artworks: data,
+    }));
   }
 
   throwError() {

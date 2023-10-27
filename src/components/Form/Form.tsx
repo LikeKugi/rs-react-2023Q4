@@ -34,6 +34,7 @@ class Form extends Component<IFormProps, object, ReactNode> {
       >
         <label htmlFor="queryInput">Query: </label>
         <input
+          className={styles.form__input}
           type="text"
           value={this.props.query}
           onChange={(e) => this.props.handleChangeQuery(e.target.value)}

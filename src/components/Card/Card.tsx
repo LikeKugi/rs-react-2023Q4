@@ -16,7 +16,7 @@ class Card extends Component<ICardProps, object> {
       <div className={styles.card}>
         <img
           className={styles.card__img}
-          src={`https://www.artic.edu/iiif/2/${this.props.content.image_id}/full/400,/0/default.jpg`}
+          src={`https://www.artic.edu/iiif/2/${this.props.content.image_id}/full/200,/0/default.jpg`}
           alt={this.props.content.title}
         />
         <div className={styles.card__body}>

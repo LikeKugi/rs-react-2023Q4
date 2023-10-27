@@ -2,6 +2,7 @@
   --colors-text: hsl(0, 0%, 100%);
   --colors-bg: hsl(207, 26%, 17%);
   --colors-ui-base: hsl(209, 23%, 22%);
+  --colors-contrast: hsl(29, 100%, 22%);
 
   --shadow: rgba(245, 245, 245, 0.2) 0 0 8px;
 
@@ -62,7 +63,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--colors-contrast);
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -77,13 +78,11 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     --colors-text: hsl(200, 15%, 8%);
-    --colors-bg: hsl(0, 0%, 98%);
+    --colors-bg: hsl(0, 0%, 96%);
     --colors-ui-base: hsl(0, 0%, 100%);
+    --colors-contrast: hsl(0, 100%, 60%);
   }
   a:hover {
     color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }

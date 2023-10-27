@@ -104,7 +104,7 @@ class App extends Component<object, IAppState> {
             handleChangeQuery={this.changeQuery}
             handleSubmit={this.handleSubmitForm}
           />
-          {this.state.artworks.length && (
+          {!!this.state.artworks.length && (
             <CardList cards={this.state.artworks} />
           )}
         </div>

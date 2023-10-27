@@ -50,3 +50,5 @@ export interface IBaseSuggestedAutocomplete {
   input: string[];
   weight?: number;
 }
+
+export type IFetchQueryParams = Record<string, string>;

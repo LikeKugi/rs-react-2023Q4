@@ -7,7 +7,7 @@ import Form from '@/components/Form/Form';
 import { fetchData } from '@/api/api';
 import { ApiConstants } from '@/api/api.constants';
 import { IArtwork } from '@/types/api/IArtwork';
-import { IBaseTypeResponse } from '@/types/api/types';
+import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
 import Header from '@/components/Header/Header';
 import CardList from '@/components/CardList/CardList';
 import styles from './App.module.scss';
@@ -35,6 +35,7 @@ class App extends Component<object, IAppState> {
     this.changeQuery = this.changeQuery.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.placeArtWorksData = this.placeArtWorksData.bind(this);
+    this.fetchArtworks = this.fetchArtworks.bind(this);
   }
 
   public componentDidUpdate() {
@@ -45,21 +46,31 @@ class App extends Component<object, IAppState> {
 
   public componentDidMount() {
     const queryObject = getDataFromStorage();
-    if (queryObject.query !== this.state.query) {
+    let query = this.state.query;
+    if (queryObject.query !== query) {
+      query = queryObject.query;
       this.setState((prev) => ({
         ...prev,
-        query: queryObject.query,
+        query,
       }));
     }
-    const params = new URLSearchParams({
+    this.fetchArtworks(query);
+  }
+
+  fetchArtworks(query: string) {
+    const initialParamsObj: IFetchQueryParams = {
       limit: `${this.state.limit}`,
       page: `${this.state.page}`,
-    });
-    (
-      fetchData(
-        `${ApiConstants.BASE}${ApiConstants.ARTWORKS}?${params}`,
-      ) as Promise<IBaseTypeResponse>
-    )
+      fields: 'id,title,image_id,artist_title,date_start,date_end',
+    };
+    if (query) {
+      initialParamsObj.q = query;
+    }
+    const params = new URLSearchParams(initialParamsObj);
+    const basePath: string = query
+      ? `${ApiConstants.BASE}${ApiConstants.ARTWORKS}/${ApiConstants.SEARCH}?${params}`
+      : `${ApiConstants.BASE}${ApiConstants.ARTWORKS}?${params}`;
+    (fetchData(basePath) as Promise<IBaseTypeResponse>)
       .then((a) => {
         this.placeArtWorksData(a.data);
       })
@@ -82,7 +93,6 @@ class App extends Component<object, IAppState> {
   }
 
   changeQuery(arg: string) {
-    console.log(arg);
     this.setState((prev) => ({
       ...prev,
       query: arg,
@@ -92,6 +102,7 @@ class App extends Component<object, IAppState> {
   handleSubmitForm(query: string) {
     console.log(query);
     setDataToLocalStorage({ query });
+    this.fetchArtworks(query);
   }
 
   public render() {
@@ -104,6 +115,9 @@ class App extends Component<object, IAppState> {
             handleChangeQuery={this.changeQuery}
             handleSubmit={this.handleSubmitForm}
           />
+          {!this.state.artworks.length && (
+            <h1 className={styles.content__alert}>No artworks found here</h1>
+          )}
           {!!this.state.artworks.length && (
             <CardList cards={this.state.artworks} />
           )}

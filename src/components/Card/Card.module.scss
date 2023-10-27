@@ -3,6 +3,9 @@
   background-color: var(--colors-ui-base);
   box-shadow: var(--shadow);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
   &__img {
     display: block;
     width: 100%;
@@ -13,10 +16,11 @@
   }
   &__body {
     padding: 1rem 1.5rem 2rem;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     & > * {
-      flex: 1 1 0;
+      flex-grow: 1;
     }
   }
   &__title {

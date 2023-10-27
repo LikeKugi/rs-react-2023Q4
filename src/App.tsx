@@ -1,4 +1,3 @@
-import './App.css';
 import { Component } from 'react';
 import {
   getDataFromStorage,
@@ -9,6 +8,9 @@ import { fetchData } from '@/api/api';
 import { ApiConstants } from '@/api/api.constants';
 import { IArtwork } from '@/types/api/IArtwork';
 import { IBaseTypeResponse } from '@/types/api/types';
+import Header from '@/components/Header/Header';
+import CardList from '@/components/CardList/CardList';
+import styles from './App.module.scss';
 
 interface IAppState {
   toThrow: boolean;
@@ -24,7 +26,7 @@ class App extends Component<object, IAppState> {
     this.state = {
       toThrow: false,
       query: '',
-      limit: 10,
+      limit: 8,
       page: 1,
       artworks: [],
     };
@@ -94,14 +96,18 @@ class App extends Component<object, IAppState> {
 
   public render() {
     return (
-      <div>
-        <h1>Hello world!</h1>
-        <Form
-          query={this.state.query}
-          handleChangeQuery={this.changeQuery}
-          handleSubmit={this.handleSubmitForm}
-        />
-        <button onClick={this.handleThrow}>Throw</button>
+      <div className={styles.content}>
+        <Header handleThrow={this.handleThrow} />
+        <div className={styles.content__base}>
+          <Form
+            query={this.state.query}
+            handleChangeQuery={this.changeQuery}
+            handleSubmit={this.handleSubmitForm}
+          />
+          {this.state.artworks.length && (
+            <CardList cards={this.state.artworks} />
+          )}
+        </div>
       </div>
     );
   }

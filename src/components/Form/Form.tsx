@@ -1,4 +1,5 @@
 import { Component, FormEvent, ReactNode } from 'react';
+import styles from './Form.module.scss';
 
 interface IFormProps {
   query: string;
@@ -26,7 +27,11 @@ class Form extends Component<IFormProps, object, ReactNode> {
 
   public render() {
     return (
-      <form onSubmit={this.submitHandler} onReset={this.resetFormHandler}>
+      <form
+        className={styles.form}
+        onSubmit={this.submitHandler}
+        onReset={this.resetFormHandler}
+      >
         <label htmlFor="queryInput">Query: </label>
         <input
           type="text"

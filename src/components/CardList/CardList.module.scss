@@ -1,0 +1,29 @@
+.list {
+  padding: 2.5rem 0;
+  background-color: var(--colors-ui-base);
+
+  &__title {
+    text-align: center;
+  }
+  &__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+
+    @include _767 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+
+      padding: 0 0.5rem;
+    }
+
+    @include _1024 {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+}

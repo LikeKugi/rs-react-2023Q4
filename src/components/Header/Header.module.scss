@@ -1,0 +1,19 @@
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--colors-bg);
+  box-shadow: var(--shadow);
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__btn {
+    align-self: center;
+  }
+}

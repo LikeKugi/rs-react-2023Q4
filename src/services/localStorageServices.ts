@@ -1,6 +1,6 @@
 import { queryObject } from '@/types/appTypes';
 
-const STORAGE_KEY = 'app_key';
+const STORAGE_KEY = 'artworks_key';
 const getDataFromStorage = () => {
   let out: queryObject = { query: '' };
   try {

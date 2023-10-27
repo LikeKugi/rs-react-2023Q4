@@ -11,6 +11,7 @@ import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
 import Header from '@/components/Header/Header';
 import CardList from '@/components/CardList/CardList';
 import styles from './App.module.scss';
+import Loader from '@/components/Loader/Loader';
 
 interface IAppState {
   toThrow: boolean;
@@ -18,6 +19,7 @@ interface IAppState {
   limit: number;
   page: number;
   artworks: IArtwork[];
+  loading: boolean;
 }
 
 class App extends Component<object, IAppState> {
@@ -29,6 +31,7 @@ class App extends Component<object, IAppState> {
       limit: 8,
       page: 1,
       artworks: [],
+      loading: true,
     };
     this.throwError = this.throwError.bind(this);
     this.handleThrow = this.handleThrow.bind(this);
@@ -51,6 +54,7 @@ class App extends Component<object, IAppState> {
       query = queryObject.query;
       this.setState((prev) => ({
         ...prev,
+        loading: false,
         query,
       }));
     }
@@ -74,7 +78,13 @@ class App extends Component<object, IAppState> {
       .then((a) => {
         this.placeArtWorksData(a.data);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e))
+      .finally(() => {
+        this.setState((prev) => ({
+          ...prev,
+          loading: false,
+        }));
+      });
   }
 
   placeArtWorksData(data: IArtwork[]) {
@@ -85,7 +95,7 @@ class App extends Component<object, IAppState> {
   }
 
   throwError() {
-    throw new Error('Error');
+    throw new Error('Error was thrown buy user');
   }
 
   handleThrow() {
@@ -100,7 +110,10 @@ class App extends Component<object, IAppState> {
   }
 
   handleSubmitForm(query: string) {
-    console.log(query);
+    this.setState((prev) => ({
+      ...prev,
+      loading: true,
+    }));
     setDataToLocalStorage({ query });
     this.fetchArtworks(query);
   }
@@ -115,7 +128,9 @@ class App extends Component<object, IAppState> {
             handleChangeQuery={this.changeQuery}
             handleSubmit={this.handleSubmitForm}
           />
-          {!this.state.artworks.length && (
+
+          {this.state.loading && <Loader />}
+          {!this.state.artworks.length && !this.state.loading && (
             <h1 className={styles.content__alert}>No artworks found here</h1>
           )}
           {!!this.state.artworks.length && (

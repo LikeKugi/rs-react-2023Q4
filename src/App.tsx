@@ -12,6 +12,7 @@ import Header from '@/components/Header/Header';
 import CardList from '@/components/CardList/CardList';
 import styles from './App.module.scss';
 import Loader from '@/components/Loader/Loader';
+import { IQueryObject } from '@/types/appTypes';
 
 interface IAppState {
   toThrow: boolean;
@@ -48,7 +49,10 @@ class App extends Component<object, IAppState> {
   }
 
   public componentDidMount() {
-    const queryObject = getDataFromStorage();
+    const fallback: IQueryObject = {
+      query: '',
+    };
+    const queryObject = getDataFromStorage(fallback) as IQueryObject;
     let query = this.state.query;
     if (queryObject.query !== query) {
       query = queryObject.query;

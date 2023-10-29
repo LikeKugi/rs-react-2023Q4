@@ -1,3 +1,3 @@
-export interface queryObject {
+export interface IQueryObject {
   query: string;
 }

@@ -5,11 +5,10 @@ class Loader extends Component {
   public render() {
     return (
       <div className={styles.back}>
-        <div className={styles.lds}>
-          <div className={styles.div}></div>
-          <div className={styles.div}></div>
-          <div className={styles.div}></div>
-          <div className={styles.div}></div>
+        <div className={styles.loader}>
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className={styles.div} />
+          ))}
         </div>
       </div>
     );

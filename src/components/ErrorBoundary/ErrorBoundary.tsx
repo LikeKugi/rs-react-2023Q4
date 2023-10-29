@@ -1,9 +1,7 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, PropsWithChildren } from 'react';
 import FallBack from '@/components/FallBack/FallBack';
 
-interface ErrorBoundaryProps {
-  children: ReactNode | string;
-}
+type ErrorBoundaryProps = PropsWithChildren<object>;
 
 interface ErrorBoundaryState {
   hasError: boolean;

@@ -2,7 +2,8 @@
   padding: 0.5rem;
 
   @include _767 {
-    padding: 0.5rem 1rem;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
   }
 
   &__title {
@@ -10,7 +11,8 @@
   }
   &__grid {
     max-width: 1200px;
-    margin: 0 auto;
+    margin-block: 0;
+    margin-inline: auto;
 
     display: grid;
     grid-template-columns: repeat(1, 1fr);

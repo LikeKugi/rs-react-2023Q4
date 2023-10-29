@@ -15,7 +15,9 @@
     box-shadow: var(--shadow);
   }
   &__body {
-    padding: 1rem 1.5rem 2rem;
+    padding-block-start: 1rem;
+    padding-block-end: 2rem;
+    padding-inline: 1.5rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -31,6 +33,8 @@
   &__list {
     list-style: none;
     margin: 0;
-    padding: 1rem 0 0;
+    padding-block-start: 1rem;
+    padding-block-end: 0;
+    padding-inline: 0;
   }
 }

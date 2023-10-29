@@ -8,7 +8,8 @@
 
   &__container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin-block: 0;
+    margin-inline: auto;
     display: flex;
     justify-content: space-between;
   }

@@ -1,24 +1,23 @@
 .back {
   position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  inset: 0;
   background-color: RGBA(15, 15, 15, 0.2);
   display: flex;
   place-content: center;
   place-items: center;
 }
-.lds {
+.loader {
   display: block;
   position: relative;
   width: 160px;
   height: 160px;
-  margin: 5rem auto 0;
+  margin-block-start: 5rem;
+  margin-block-end: 0;
+  margin-inline: auto;
 }
 .div {
   position: absolute;
-  top: 66px;
+  inset-block-start: 66px;
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -26,19 +25,19 @@
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .div:nth-child(1) {
-  left: 16px;
+  inset-inline-start: 16px;
   animation: lds-ellipsis1 0.6s infinite;
 }
 .div:nth-child(2) {
-  left: 16px;
+  inset-inline-start: 16px;
   animation: lds-ellipsis2 0.6s infinite;
 }
 .div:nth-child(3) {
-  left: 64px;
+  inset-inline-start: 64px;
   animation: lds-ellipsis2 0.6s infinite;
 }
 .div:nth-child(4) {
-  left: 112px;
+  inset-inline-start: 112px;
   animation: lds-ellipsis3 0.6s infinite;
 }
 @keyframes lds-ellipsis1 {

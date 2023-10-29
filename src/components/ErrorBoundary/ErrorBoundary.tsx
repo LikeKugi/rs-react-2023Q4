@@ -24,7 +24,11 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   render() {
     if (this.state.hasError) {
-      return <FallBack btnHandler={() => this.setState({ hasError: false })} />;
+      return (
+        <FallBack
+          buttonClickHandler={() => this.setState({ hasError: false })}
+        />
+      );
     }
     return this.props.children;
   }

@@ -2,7 +2,7 @@ import { Component } from 'react';
 import styles from './FallBack.module.scss';
 
 interface IFallBackProps {
-  btnHandler: () => void;
+  buttonClickHandler: () => void;
 }
 
 class FallBack extends Component<IFallBackProps> {
@@ -13,7 +13,7 @@ class FallBack extends Component<IFallBackProps> {
     return (
       <div className={styles.fallback}>
         <h1>Something went wrong.</h1>
-        <button onClick={this.props.btnHandler}>Remove error</button>
+        <button onClick={this.props.buttonClickHandler}>Remove error</button>
       </div>
     );
   }

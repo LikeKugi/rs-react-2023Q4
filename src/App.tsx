@@ -67,8 +67,8 @@ class App extends Component<object, IAppState> {
 
   fetchArtworks(query: string) {
     const initialParamsObj: IFetchQueryParams = {
-      limit: `${this.state.limit}`,
-      page: `${this.state.page}`,
+      limit: this.state.limit.toString(),
+      page: this.state.page.toString(),
       fields: 'id,title,image_id,artist_title,date_start,date_end',
     };
     if (query) {

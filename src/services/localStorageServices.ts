@@ -3,10 +3,11 @@ import { GetDataFromStorageType } from '@/services/localStorageServices.types';
 
 const STORAGE_KEY = 'artworks_key';
 const getDataFromStorage: GetDataFromStorageType<unknown> = (fallback) => {
-  let out = null;
+  let out;
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     if (data) out = JSON.parse(data);
+    else out = fallback;
   } catch (e) {
     out = fallback ?? null;
   }

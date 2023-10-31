@@ -1,0 +1,11 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  &__base {
+    flex-grow: 1;
+  }
+  &__alert {
+    text-align: center;
+  }
+}

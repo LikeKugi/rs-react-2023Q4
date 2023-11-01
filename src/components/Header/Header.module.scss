@@ -13,4 +13,11 @@
     display: flex;
     justify-content: space-between;
   }
+
+  &__link {
+    color: inherit;
+    &:hover {
+      color: inherit;
+    }
+  }
 }

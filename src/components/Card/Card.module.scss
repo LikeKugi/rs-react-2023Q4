@@ -11,6 +11,15 @@
     }
   }
 
+  &__link {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      scale: 1.05;
+    }
+  }
+
   &__img {
     display: block;
     width: 100%;

@@ -42,6 +42,7 @@ a {
   font-weight: var(--fw-medium);
   color: var(--color-link-base);
   text-decoration: inherit;
+  transition: color 0.3s ease-in-out;
 }
 a:hover {
   color: var(--color-link-hover);

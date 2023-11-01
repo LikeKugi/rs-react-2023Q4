@@ -1,0 +1,12 @@
+.pagination {
+  max-width: max-content;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+
+  &__current {
+    display: inline-block;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+  }
+}

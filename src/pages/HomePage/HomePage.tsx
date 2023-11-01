@@ -12,21 +12,24 @@ import {
 import Form from '@/components/Form/Form';
 import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
+import Pagination from '@/components/Pagination/Pagination';
 
 const HomePage = (): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
   const [limit, setLimit] = useState(0);
   const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [artworks, setArtworks] = useState<IArtwork[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const fetchArtworks = useCallback(
     (query: string) => {
       const initialParamsObj: IFetchQueryParams = {
         limit: limit.toString(),
         page: page.toString(),
-        fields: 'id,title,image_id,artist_title,date_start,date_end',
+        fields: 'id,title,image_id,artist_title,date_start,date_end,color',
       };
       if (query) {
         initialParamsObj.q = query;
@@ -38,6 +41,7 @@ const HomePage = (): JSX.Element => {
       (fetchData(basePath) as Promise<IBaseTypeResponse>)
         .then((a) => {
           setArtworks(a.data);
+          setTotalPages(a.pagination.total_pages);
         })
         .catch((e) => console.log(e))
         .finally(() => {
@@ -59,6 +63,10 @@ const HomePage = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
+    setSearchParams({ page: page.toString() });
+  }, [page, searchParams, setSearchParams]);
+
+  useEffect(() => {
     if (!loading) return;
     fetchArtworks(query);
   }, [fetchArtworks, loading, query]);
@@ -66,6 +74,14 @@ const HomePage = (): JSX.Element => {
   const handleSubmitForm = (query: string) => {
     setLoading(true);
     setDataToLocalStorage({ query });
+  };
+
+  const changePaginationState = (i: number) => {
+    if (i < 1 || i > totalPages) {
+      return;
+    }
+    setLoading(true);
+    setPage(i);
   };
 
   return (
@@ -80,7 +96,16 @@ const HomePage = (): JSX.Element => {
         {!artworks.length && !loading && (
           <h1 className={styles.alert}>No artworks found here</h1>
         )}
-        {!!artworks.length && <CardList cards={artworks} />}
+        {!!artworks.length && (
+          <>
+            <CardList cards={artworks} />
+            <Pagination
+              currentPage={page}
+              setCurrentPage={changePaginationState}
+              totalPages={totalPages}
+            />
+          </>
+        )}
       </div>
       <div className={styles.wrapper__right}>
         <Outlet />

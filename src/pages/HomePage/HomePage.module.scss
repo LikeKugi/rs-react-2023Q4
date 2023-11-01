@@ -4,6 +4,11 @@
 
 .wrapper {
   display: flex;
+  flex-direction: column-reverse;
+
+  @include _767 {
+    flex-direction: row;
+  }
   &__left {
     flex-grow: 1;
     flex-shrink: 1;

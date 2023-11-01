@@ -8,11 +8,19 @@ import {
 import { RouterConstants } from '@/routes/RouterConstants';
 import RootPage from '@/pages/RootPage/RootPage';
 import HomePage from '@/pages/HomePage/HomePage';
+import ModalPage from '@/pages/ModalPage/ModalPage';
+import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <Route path={RouterConstants.INDEX} element={<RootPage />}>
-      <Route index element={<HomePage />} />
+      <Route path={RouterConstants.INDEX} element={<HomePage />}>
+        <Route
+          path={`${RouterConstants.ARTWORKS}${RouterConstants.ARTWORK_ID}`}
+          element={<ModalPage />}
+        />
+      </Route>
+      <Route path={RouterConstants.NOT_FOUND} element={<NotFoundPage />} />
     </Route>,
   ),
 );

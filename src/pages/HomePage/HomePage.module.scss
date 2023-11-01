@@ -1,3 +1,15 @@
 .alert {
   text-align: center;
 }
+
+.wrapper {
+  display: flex;
+  &__left {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+  &__right {
+    flex-grow: 0;
+    flex-shrink: 1;
+  }
+}

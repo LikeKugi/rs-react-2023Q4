@@ -4,6 +4,7 @@
   inset-inline: 0;
   background-color: var(--colors-bg);
   box-shadow: var(--shadow);
+  z-index: 3;
 
   &__container {
     max-width: 1200px;

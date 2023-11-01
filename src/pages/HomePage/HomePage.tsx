@@ -12,6 +12,7 @@ import {
 import Form from '@/components/Form/Form';
 import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';
+import { Outlet } from 'react-router-dom';
 
 const HomePage = (): JSX.Element => {
   const [loading, setLoading] = useState(false);
@@ -68,18 +69,23 @@ const HomePage = (): JSX.Element => {
   };
 
   return (
-    <>
-      <Form
-        query={query}
-        handleChangeQuery={setQuery}
-        handleSubmit={handleSubmitForm}
-      />
-      {loading && <Loader />}
-      {!artworks.length && !loading && (
-        <h1 className={styles.alert}>No artworks found here</h1>
-      )}
-      {!!artworks.length && <CardList cards={artworks} />}
-    </>
+    <div className={styles.wrapper}>
+      <div className={styles.wrapper__left}>
+        <Form
+          query={query}
+          handleChangeQuery={setQuery}
+          handleSubmit={handleSubmitForm}
+        />
+        {loading && <Loader />}
+        {!artworks.length && !loading && (
+          <h1 className={styles.alert}>No artworks found here</h1>
+        )}
+        {!!artworks.length && <CardList cards={artworks} />}
+      </div>
+      <div className={styles.wrapper__right}>
+        <Outlet />
+      </div>
+    </div>
   );
 };
 export default HomePage;

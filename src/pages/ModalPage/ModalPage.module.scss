@@ -1,0 +1,22 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+
+}
+.content {
+  position: sticky;
+  top: 5rem;
+  width: 100%;
+  height: fit-content;
+  max-width: min(100%, 65rem);
+  background-color: var(--colors-ui-base);
+  border: 5px;
+  box-shadow: var(--shadow);
+  border-radius: var(--radii);
+  padding: 2rem;
+}

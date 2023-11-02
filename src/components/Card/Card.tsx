@@ -22,7 +22,7 @@ const Card: FC<ICardProps> = ({ content }) => {
         {content.image_id ? (
           <img
             className={styles.card__img}
-            src={`https://www.artic.edu/iiif/2/${content.image_id}/full/200,/0/default.jpg`}
+            src={`https://www.artic.edu/iiif/2/${content.image_id}/full/843,/0/default.jpg`}
             alt={content.title}
           />
         ) : (

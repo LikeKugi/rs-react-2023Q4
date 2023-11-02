@@ -1,3 +1,5 @@
+import { IArtwork } from '@/types/api/IArtwork';
+
 export interface IBaseConfigResponse {
   iiif_url: string;
   website_url: string;
@@ -18,9 +20,15 @@ export interface IBasePaginationResponse {
 }
 export interface IBaseTypeResponse {
   config: IBaseConfigResponse;
-  data: [];
+  data: IArtwork[];
   info: IBaseInfoResponse;
   pagination: IBasePaginationResponse;
+}
+
+export interface IBaseDetailsArtworkResponse {
+  config: IBaseConfigResponse;
+  data: IArtwork;
+  info: IBaseInfoResponse;
 }
 
 export interface IBaseColor {

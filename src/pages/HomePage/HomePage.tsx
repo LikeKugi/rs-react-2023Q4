@@ -14,6 +14,7 @@ import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Pagination from '@/components/Pagination/Pagination';
+import LimitSelection from '@/components/LimitSelection/LimitSelection';
 
 const HomePage = (): JSX.Element => {
   const [loading, setLoading] = useState(false);
@@ -85,6 +86,13 @@ const HomePage = (): JSX.Element => {
     setPage(i);
   };
 
+  const handleLimitChange = (i: number) => {
+    if (i < 0 || i % 4) return;
+    setLimit(i);
+    setPage(1);
+    setLoading(true);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapper__left}>
@@ -105,6 +113,7 @@ const HomePage = (): JSX.Element => {
               setCurrentPage={changePaginationState}
               totalPages={totalPages}
             />
+            <LimitSelection limit={limit} setLimit={handleLimitChange} />
           </>
         )}
       </div>

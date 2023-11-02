@@ -9,6 +9,7 @@
 .content {
   position: sticky;
   inset-block-end: 5rem;
+  min-width: 320px;
   width: 100%;
   max-width: min(100%, 65rem);
   height: fit-content;

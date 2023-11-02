@@ -1,0 +1,21 @@
+.modal {
+  position: fixed;
+  inset-inline: 0;
+  inset-block: 0;
+  display: flex;
+  justify-content: flex-end;
+
+}
+.content {
+  position: sticky;
+  inset-block-end: 5rem;
+  min-width: 320px;
+  width: 100%;
+  max-width: min(100%, 65rem);
+  height: fit-content;
+  padding: 2rem;
+  border: 5px;
+  border-radius: var(--radii);
+  background-color: var(--colors-ui-base);
+  box-shadow: var(--shadow);
+}

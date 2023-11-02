@@ -1,0 +1,29 @@
+.list {
+  padding: 0.5rem;
+
+  @include _767 {
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+  }
+
+  &__title {
+    text-align: center;
+  }
+  &__grid {
+    margin-block: 0;
+    margin-inline: auto;
+
+    column-count: 1;
+    column-fill: balance;
+
+    @include _767 {
+      column-count: 2;
+      column-gap: 1rem;
+    }
+
+    @include _1024 {
+      column-count: 4;
+      column-gap: 1.5rem;
+    }
+  }
+}

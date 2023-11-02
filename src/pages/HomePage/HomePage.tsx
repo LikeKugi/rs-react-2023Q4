@@ -19,10 +19,11 @@ const HomePage = (): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
   const [limit, setLimit] = useState(0);
-  const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [artworks, setArtworks] = useState<IArtwork[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = Number(searchParams.get('page')) || 1;
+  const [page, setPage] = useState(initialPage);
 
   const fetchArtworks = useCallback(
     (query: string) => {
@@ -58,7 +59,6 @@ const HomePage = (): JSX.Element => {
     const queryObject = getDataFromStorage(fallback) as IQueryObject;
     setQuery(queryObject.query);
     setLimit(8);
-    setPage(1);
     setLoading(true);
   }, []);
 
@@ -73,6 +73,7 @@ const HomePage = (): JSX.Element => {
 
   const handleSubmitForm = (query: string) => {
     setLoading(true);
+    setPage(1);
     setDataToLocalStorage({ query });
   };
 

@@ -1,22 +1,20 @@
 .modal {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset-inline: 0;
+  inset-block: 0;
   display: flex;
   justify-content: flex-end;
 
 }
 .content {
   position: sticky;
-  top: 5rem;
+  inset-block-end: 5rem;
   width: 100%;
-  height: fit-content;
   max-width: min(100%, 65rem);
-  background-color: var(--colors-ui-base);
-  border: 5px;
-  box-shadow: var(--shadow);
-  border-radius: var(--radii);
+  height: fit-content;
   padding: 2rem;
+  border: 5px;
+  border-radius: var(--radii);
+  background-color: var(--colors-ui-base);
+  box-shadow: var(--shadow);
 }

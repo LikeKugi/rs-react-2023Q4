@@ -32,6 +32,7 @@ const NavigationProvider: FC<PropsWithChildren> = ({
   }, []);
 
   const handleChangePage = useCallback((i?: number, total?: number) => {
+    setLoading(true);
     if (!i) {
       setPage(INITIAL_PAGE);
       return;
@@ -43,11 +44,11 @@ const NavigationProvider: FC<PropsWithChildren> = ({
     if (i < 1 || i > total) {
       return;
     }
-    setLoading(true);
     setPage(i);
   }, []);
 
   const handleChangeLimit = useCallback((i?: number) => {
+    setLoading(true);
     if (!i) {
       setLimit(INITIAL_LIMIT);
       return;
@@ -55,7 +56,6 @@ const NavigationProvider: FC<PropsWithChildren> = ({
     if (i < 0 || i % 4) return;
     setLimit(i);
     setPage(1);
-    setLoading(true);
   }, []);
 
   const handleChangeQuery = useCallback((query?: string) => {

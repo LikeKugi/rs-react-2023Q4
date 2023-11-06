@@ -21,7 +21,9 @@ const LimitSelection: FC<ILimitSelectionProps> = ({
         value={limit}
       >
         {Array.from({ length: 5 }, (_, i) => (
-          <option value={i * 4 + 4}>{i * 4 + 4}</option>
+          <option value={i * 4 + 4} key={i}>
+            {i * 4 + 4}
+          </option>
         ))}
       </select>
     </div>

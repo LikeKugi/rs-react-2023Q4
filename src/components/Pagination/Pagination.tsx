@@ -3,7 +3,7 @@ import styles from './Pagination.module.scss';
 
 interface IPaginationProps {
   currentPage: number;
-  setCurrentPage: (arg: number) => void;
+  setCurrentPage: (arg?: number, total?: number) => void;
   totalPages: number;
 }
 
@@ -19,7 +19,7 @@ const Pagination: FC<IPaginationProps> = ({
       </button>
       <button
         disabled={currentPage === 1}
-        onClick={() => setCurrentPage(currentPage - 1)}
+        onClick={() => setCurrentPage(currentPage - 1, totalPages)}
       >
         &lt;
       </button>
@@ -28,13 +28,13 @@ const Pagination: FC<IPaginationProps> = ({
       </span>
       <button
         disabled={currentPage === totalPages}
-        onClick={() => setCurrentPage(currentPage + 1)}
+        onClick={() => setCurrentPage(currentPage + 1, totalPages)}
       >
         &gt;
       </button>
       <button
         disabled={currentPage === totalPages}
-        onClick={() => setCurrentPage(totalPages)}
+        onClick={() => setCurrentPage(totalPages, totalPages)}
       >
         &gt;&gt;
       </button>

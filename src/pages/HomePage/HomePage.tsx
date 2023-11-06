@@ -4,27 +4,29 @@ import { IArtwork } from '@/types/api/IArtwork';
 import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
 import { ApiConstants } from '@/api/api.constants';
 import { fetchData } from '@/api/api';
-import { IQueryObject } from '@/types/appTypes';
-import {
-  getDataFromStorage,
-  setDataToLocalStorage,
-} from '@/services/localStorageServices';
+import { setDataToLocalStorage } from '@/services/localStorageServices';
 import Form from '@/components/Form/Form';
 import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Pagination from '@/components/Pagination/Pagination';
 import LimitSelection from '@/components/LimitSelection/LimitSelection';
+import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
 
 const HomePage = (): JSX.Element => {
-  const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState('');
-  const [limit, setLimit] = useState(0);
+  const {
+    loading,
+    setLoading,
+    query,
+    setQuery,
+    limit,
+    setLimit,
+    page,
+    setPage,
+  } = useNavigationProvider();
   const [totalPages, setTotalPages] = useState(0);
   const [artworks, setArtworks] = useState<IArtwork[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialPage = Number(searchParams.get('page')) || 1;
-  const [page, setPage] = useState(initialPage);
 
   const fetchArtworks = useCallback(
     (query: string) => {
@@ -50,18 +52,8 @@ const HomePage = (): JSX.Element => {
           setLoading(false);
         });
     },
-    [limit, page],
+    [limit, page, setLoading],
   );
-
-  useEffect(() => {
-    const fallback: IQueryObject = {
-      query: '',
-    };
-    const queryObject = getDataFromStorage(fallback) as IQueryObject;
-    setQuery(queryObject.query);
-    setLimit(8);
-    setLoading(true);
-  }, []);
 
   useEffect(() => {
     setSearchParams({ page: page.toString() });
@@ -73,24 +65,8 @@ const HomePage = (): JSX.Element => {
   }, [fetchArtworks, loading, query]);
 
   const handleSubmitForm = (query: string) => {
-    setLoading(true);
     setPage(1);
     setDataToLocalStorage({ query });
-  };
-
-  const changePaginationState = (i: number) => {
-    if (i < 1 || i > totalPages) {
-      return;
-    }
-    setLoading(true);
-    setPage(i);
-  };
-
-  const handleLimitChange = (i: number) => {
-    if (i < 0 || i % 4) return;
-    setLimit(i);
-    setPage(1);
-    setLoading(true);
   };
 
   return (
@@ -110,10 +86,10 @@ const HomePage = (): JSX.Element => {
             <CardList cards={artworks} />
             <Pagination
               currentPage={page}
-              setCurrentPage={changePaginationState}
+              setCurrentPage={setPage}
               totalPages={totalPages}
             />
-            <LimitSelection limit={limit} setLimit={handleLimitChange} />
+            <LimitSelection limit={limit} setLimit={setLimit} />
           </>
         )}
       </div>

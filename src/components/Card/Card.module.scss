@@ -1,9 +1,8 @@
 .card {
-  border-radius: var(--radii);
-  background-color: var(--colors-ui-base);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  background-color: var(--colors-ui-base);
   &:not(:last-of-type) {
     margin-block-end: 1rem;
     @include _767 {

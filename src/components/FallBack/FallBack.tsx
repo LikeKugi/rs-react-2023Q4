@@ -9,7 +9,7 @@ const FallBack: FC<IFallBackProps> = ({ buttonClickHandler }) => {
   return (
     <div className={styles.fallback}>
       <h1>Something went wrong.</h1>
-      <button onClick={buttonClickHandler}>Remove error</button>
+      <button onClick={buttonClickHandler}>Back to main</button>
     </div>
   );
 };

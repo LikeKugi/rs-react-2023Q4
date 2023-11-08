@@ -10,16 +10,17 @@ import RootPage from '@/pages/RootPage/RootPage';
 import HomePage from '@/pages/HomePage/HomePage';
 import ModalPage from '@/pages/ModalPage/ModalPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
+import ArtworkDetails from '@/components/ArtworkDetails/ArtworkDetails';
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path={RouterConstants.INDEX} element={<RootPage />}>
         <Route path={RouterConstants.INDEX} element={<HomePage />}>
-          <Route path={RouterConstants.ARTWORKS}>
+          <Route path={RouterConstants.ARTWORKS} element={<ModalPage />}>
             <Route
               path={`${RouterConstants.ARTWORK_ID}`}
-              element={<ModalPage />}
+              element={<ArtworkDetails />}
             />
           </Route>
         </Route>

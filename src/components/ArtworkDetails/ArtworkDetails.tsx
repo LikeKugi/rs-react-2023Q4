@@ -1,41 +1,67 @@
-import { FC, JSX } from 'react';
+import { JSX, useCallback, useEffect, useState } from 'react';
 import { IArtwork } from '@/types/api/IArtwork';
 import styles from './ArtworkDetails.module.scss';
 import parse from 'html-react-parser';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
+import { useParams } from 'react-router-dom';
+import { ApiConstants } from '@/api/api.constants';
+import { fetchData } from '@/api/api';
+import { IBaseDetailsArtworkResponse } from '@/types/api/types';
+import Loader from '@/components/Loader/Loader';
 
-interface IArtworkDetails {
-  content: IArtwork;
-}
+const ArtworkDetails = (): JSX.Element => {
+  const [loading, setLoading] = useState(true);
+  const [artwork, setArtwork] = useState<IArtwork | null>(null);
 
-const ArtworkDetails: FC<IArtworkDetails> = ({ content }): JSX.Element => {
+  const { artworkId } = useParams();
+
+  const fetchArtworkById = useCallback((query: string) => {
+    const basePath = `${ApiConstants.BASE}${ApiConstants.ARTWORKS}/${query}`;
+    (fetchData(basePath) as Promise<IBaseDetailsArtworkResponse>)
+      .then((a) => {
+        setArtwork(a.data);
+      })
+      .catch((e) => console.log(e))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchArtworkById(artworkId as string);
+  }, [artworkId, fetchArtworkById]);
+
+  if (loading || !artwork) {
+    return <Loader />;
+  }
+
   return (
     <ErrorBoundary>
       <div className={styles.artwork}>
-        <h2>{content.title}</h2>
+        <h2>{artwork.title}</h2>
         <div className={styles.artwork__box}>
-          {content.image_id ? (
+          {artwork.image_id ? (
             <img
               className={styles.artwork__img}
-              src={`https://www.artic.edu/iiif/2/${content.image_id}/full/843,/0/default.jpg`}
-              alt={content.title}
+              src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
+              alt={artwork.title}
             />
-          ) : content.on_loan_display ? (
-            parse(content.on_loan_display)
+          ) : artwork.on_loan_display ? (
+            parse(artwork.on_loan_display)
           ) : (
-            content.title
+            artwork.title
           )}
         </div>
         <p>
-          <strong>{content.artist_display}</strong>
+          <strong>{artwork.artist_display}</strong>
         </p>
         <p>
           <strong>
-            {content.date_start} - {content.date_end}
+            {artwork.date_start} - {artwork.date_end}
           </strong>
         </p>
         <div className={styles.artwork__text}>
-          {content.description && parse(content.description)}
+          {artwork.description && parse(artwork.description)}
         </div>
       </div>
     </ErrorBoundary>

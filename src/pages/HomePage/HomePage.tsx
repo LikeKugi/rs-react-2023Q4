@@ -71,31 +71,27 @@ const HomePage = (): JSX.Element => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.wrapper__left}>
-        <Form
-          query={query}
-          handleChangeQuery={setQuery}
-          handleSubmit={handleSubmitForm}
-        />
-        {loading && <Loader />}
-        {!artworks.length && !loading && (
-          <h1 className={styles.alert}>No artworks found here</h1>
-        )}
-        {!!artworks.length && (
-          <>
-            <CardList cards={artworks} />
-            <Pagination
-              currentPage={page}
-              setCurrentPage={setPage}
-              totalPages={totalPages}
-            />
-            <LimitSelection limit={limit} setLimit={setLimit} />
-          </>
-        )}
-      </div>
-      <div className={styles.wrapper__right}>
-        <Outlet />
-      </div>
+      <Outlet />
+      <Form
+        query={query}
+        handleChangeQuery={setQuery}
+        handleSubmit={handleSubmitForm}
+      />
+      {loading && <Loader />}
+      {!artworks.length && !loading && (
+        <h1 className={styles.alert}>No artworks found here</h1>
+      )}
+      {!!artworks.length && (
+        <>
+          <CardList cards={artworks} />
+          <Pagination
+            currentPage={page}
+            setCurrentPage={setPage}
+            totalPages={totalPages}
+          />
+          <LimitSelection limit={limit} setLimit={setLimit} />
+        </>
+      )}
     </div>
   );
 };

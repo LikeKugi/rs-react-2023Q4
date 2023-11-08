@@ -2,16 +2,21 @@
   position: fixed;
   inset-inline: 0;
   inset-block: 0;
+  padding-block-start: 5rem;
+  z-index: 5;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  background-color: RGBA(0, 0, 0, 0.2);
+  overflow-y: auto;
 
+  &__btn {
+    display: block;
+    margin-inline-start: auto;
+  }
 }
 .content {
-  position: sticky;
-  inset-block-end: 5rem;
   min-width: 320px;
-  width: 100%;
-  max-width: min(100%, 65rem);
+  max-width: 1000px;
   height: fit-content;
   padding: 2rem;
   border: 5px;

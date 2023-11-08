@@ -39,11 +39,17 @@ const ModalPage = (): JSX.Element => {
       <div
         className={styles.modal}
         onClick={() => navigate(previousLocation || '/')}
-      />
-      <div className={styles.content}>
-        <button onClick={() => navigate(previousLocation || '/')}>Close</button>
-        {(loading || !artwork) && <Loader />}
-        {artwork && <ArtworkDetails content={artwork} />}
+      >
+        <div className={styles.content} onClick={(e) => e.stopPropagation()}>
+          {(loading || !artwork) && <Loader />}
+          {artwork && <ArtworkDetails content={artwork} />}
+          <button
+            className={styles.modal__btn}
+            onClick={() => navigate(previousLocation || '/')}
+          >
+            Close
+          </button>
+        </div>
       </div>
     </>
   );

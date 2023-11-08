@@ -3,18 +3,8 @@
 }
 
 .wrapper {
-  display: flex;
-  flex-direction: column-reverse;
-
-  @include _767 {
-    flex-direction: row;
-  }
-  &__left {
-    flex-grow: 1;
-    flex-shrink: 1;
-  }
-  &__right {
-    flex-grow: 0;
-    flex-shrink: 1;
-  }
+  max-width: 1600px;
+  margin-block: 0;
+  margin-inline: auto;
+  padding-inline: 1rem;
 }

@@ -13,15 +13,19 @@ import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={RouterConstants.INDEX} element={<RootPage />}>
-      <Route path={RouterConstants.INDEX} element={<HomePage />}>
-        <Route
-          path={`${RouterConstants.ARTWORKS}${RouterConstants.ARTWORK_ID}`}
-          element={<ModalPage />}
-        />
+    <>
+      <Route path={RouterConstants.INDEX} element={<RootPage />}>
+        <Route path={RouterConstants.INDEX} element={<HomePage />}>
+          <Route path={RouterConstants.ARTWORKS}>
+            <Route
+              path={`${RouterConstants.ARTWORK_ID}`}
+              element={<ModalPage />}
+            />
+          </Route>
+        </Route>
+        <Route path={RouterConstants.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
-      <Route path={RouterConstants.NOT_FOUND} element={<NotFoundPage />} />
-    </Route>,
+    </>,
   ),
 );
 

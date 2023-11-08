@@ -1,6 +1,5 @@
-import { JSX, useCallback, useEffect, useState } from 'react';
+import { JSX, useCallback, useEffect } from 'react';
 import styles from './HomePage.module.scss';
-import { IArtwork } from '@/types/api/IArtwork';
 import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
 import { ApiConstants } from '@/api/api.constants';
 import { fetchData } from '@/api/api';
@@ -12,6 +11,7 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import Pagination from '@/components/Pagination/Pagination';
 import LimitSelection from '@/components/LimitSelection/LimitSelection';
 import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
+import { useArtworksProvider } from '@/provider/ArtworksProvider/ArtworksProvider.hooks';
 
 const HomePage = (): JSX.Element => {
   const {
@@ -24,8 +24,8 @@ const HomePage = (): JSX.Element => {
     page,
     setPage,
   } = useNavigationProvider();
-  const [totalPages, setTotalPages] = useState(0);
-  const [artworks, setArtworks] = useState<IArtwork[]>([]);
+  const { totalPages, setTotalPages, setArtworks, artworks } =
+    useArtworksProvider();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const fetchArtworks = useCallback(
@@ -52,7 +52,7 @@ const HomePage = (): JSX.Element => {
           setLoading(false);
         });
     },
-    [limit, page, setLoading],
+    [limit, page, setArtworks, setLoading, setTotalPages],
   );
 
   useEffect(() => {

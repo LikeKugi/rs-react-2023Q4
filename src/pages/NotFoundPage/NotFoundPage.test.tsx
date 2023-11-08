@@ -48,7 +48,6 @@ describe('<NotFoundPage /> tests', () => {
     linkElement.focus();
     expect(linkElement).toHaveFocus();
   });
-
   it('should change page', function () {
     const MockPage = () => {
       const { page } = useNavigationProvider();

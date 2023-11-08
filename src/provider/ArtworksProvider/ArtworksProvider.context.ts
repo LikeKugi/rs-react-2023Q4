@@ -1,9 +1,9 @@
-import { IArtwork } from '@/types/api/IArtwork';
+import { ArtworksTypes } from '@/types/api/artworks.types';
 import { createContext } from 'react';
 
 interface IArtworksProviderContext {
-  artworks: IArtwork[];
-  setArtworks: (arg: IArtwork[]) => void;
+  artworks: ArtworksTypes[];
+  setArtworks: (arg: ArtworksTypes[]) => void;
   totalPages: number;
   setTotalPages: (arg: number) => void;
 }

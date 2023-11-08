@@ -1,9 +1,9 @@
 import { FC, JSX, PropsWithChildren, useState } from 'react';
-import { IArtwork } from '@/types/api/IArtwork';
+import { ArtworksTypes } from '@/types/api/artworks.types';
 import { ArtworksProviderContext } from '@/provider/ArtworksProvider/ArtworksProvider.context';
 
 const ArtworksProvider: FC<PropsWithChildren> = ({ children }): JSX.Element => {
-  const [artworks, setArtworks] = useState<IArtwork[]>([]);
+  const [artworks, setArtworks] = useState<ArtworksTypes[]>([]);
   const [totalPages, setTotalPages] = useState<number>(0);
 
   return (

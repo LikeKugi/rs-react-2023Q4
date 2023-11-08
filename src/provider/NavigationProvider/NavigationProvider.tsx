@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 import { NavigationProviderContext } from '@/provider/NavigationProvider/NavigationProvider.context';
-import { IQueryObject } from '@/types/appTypes';
+import { IQueryObject } from '@/types/app.types';
 import { getDataFromStorage } from '@/services/localStorageServices';
 
 const INITIAL_LIMIT = 8;

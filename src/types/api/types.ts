@@ -1,4 +1,4 @@
-import { IArtwork } from '@/types/api/IArtwork';
+import { ArtworksTypes } from '@/types/api/artworks.types';
 
 export interface IBaseConfigResponse {
   iiif_url: string;
@@ -20,14 +20,14 @@ export interface IBasePaginationResponse {
 }
 export interface IBaseTypeResponse {
   config: IBaseConfigResponse;
-  data: IArtwork[];
+  data: ArtworksTypes[];
   info: IBaseInfoResponse;
   pagination: IBasePaginationResponse;
 }
 
 export interface IBaseDetailsArtworkResponse {
   config: IBaseConfigResponse;
-  data: IArtwork;
+  data: ArtworksTypes;
   info: IBaseInfoResponse;
 }
 

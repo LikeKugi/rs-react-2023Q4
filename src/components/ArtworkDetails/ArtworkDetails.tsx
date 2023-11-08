@@ -1,5 +1,5 @@
 import { JSX, useCallback, useEffect, useState } from 'react';
-import { IArtwork } from '@/types/api/IArtwork';
+import { ArtworksTypes } from '@/types/api/artworks.types';
 import styles from './ArtworkDetails.module.scss';
 import parse from 'html-react-parser';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
@@ -11,7 +11,7 @@ import Loader from '@/components/Loader/Loader';
 
 const ArtworkDetails = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
-  const [artwork, setArtwork] = useState<IArtwork | null>(null);
+  const [artwork, setArtwork] = useState<ArtworksTypes | null>(null);
 
   const { artworkId } = useParams();
 

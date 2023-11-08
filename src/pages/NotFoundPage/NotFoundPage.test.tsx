@@ -1,9 +1,9 @@
 import { afterEach, describe, expect } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import NavigationProvider from '@/provider/NavigationProvider/NavigationProvider';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
+import { MockNavigationPageProvider } from '~/__tests__/provider/MockNavigationPageProvider/MockNavigationPageProvider';
 
 describe('<NotFoundPage /> tests', () => {
   afterEach(() => {
@@ -12,11 +12,11 @@ describe('<NotFoundPage /> tests', () => {
 
   it('should render component', function () {
     render(
-      <NavigationProvider>
+      <MockNavigationPageProvider>
         <BrowserRouter>
           <NotFoundPage />
         </BrowserRouter>
-      </NavigationProvider>,
+      </MockNavigationPageProvider>,
     );
 
     expect(true).toBeTruthy();
@@ -24,11 +24,11 @@ describe('<NotFoundPage /> tests', () => {
 
   it('should not be empty', function () {
     render(
-      <NavigationProvider>
+      <MockNavigationPageProvider>
         <BrowserRouter>
           <NotFoundPage />
         </BrowserRouter>
-      </NavigationProvider>,
+      </MockNavigationPageProvider>,
     );
 
     const headerElement = screen.queryByText('The information not found');
@@ -37,11 +37,11 @@ describe('<NotFoundPage /> tests', () => {
 
   it('should contain link', function () {
     render(
-      <NavigationProvider>
+      <MockNavigationPageProvider>
         <BrowserRouter>
           <NotFoundPage />
         </BrowserRouter>
-      </NavigationProvider>,
+      </MockNavigationPageProvider>,
     );
 
     const linkElement = screen.getByRole('link');
@@ -55,12 +55,12 @@ describe('<NotFoundPage /> tests', () => {
     };
 
     render(
-      <NavigationProvider>
+      <MockNavigationPageProvider>
         <BrowserRouter>
           <MockPage />
           <NotFoundPage />
         </BrowserRouter>
-      </NavigationProvider>,
+      </MockNavigationPageProvider>,
     );
 
     const pageEl = screen.queryByText(/page:/i);
@@ -69,5 +69,34 @@ describe('<NotFoundPage /> tests', () => {
 
     fireEvent.click(linkElement);
     expect(pageEl!.textContent).toBe('page: 1');
+  });
+
+  it('should render NotFoundPage when route is invalid', async function () {
+    render(
+      <MockNavigationPageProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path={'/'}
+              element={
+                <>
+                  <Link to={'/dfe'}>Error</Link>
+                  <Link to={'/test'}>Test</Link>
+                </>
+              }
+            />
+            <Route path={'/test'} element={<>Test</>} />
+            <Route path={'*'} element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </MockNavigationPageProvider>,
+    );
+
+    expect(screen.getByText(/test/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText(/error/i));
+    expect(
+      await screen.findByText('The information not found'),
+    ).toBeInTheDocument();
   });
 });

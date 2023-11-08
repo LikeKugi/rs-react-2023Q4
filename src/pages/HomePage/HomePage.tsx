@@ -83,7 +83,7 @@ const HomePage = (): JSX.Element => {
       )}
       {!!artworks.length && (
         <>
-          <CardList cards={artworks} />
+          <CardList />
           <Pagination
             currentPage={page}
             setCurrentPage={setPage}

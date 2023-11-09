@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useEffect, useId } from 'react';
+import { FormEvent, useCallback, useEffect, useId, useState } from 'react';
 import styles from './Form.module.scss';
 import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
 import {
@@ -10,6 +10,8 @@ import { IQueryObject } from '@/types/app.types';
 const Form = () => {
   const { query, setQuery, setPage } = useNavigationProvider();
 
+  const [inputValue, setInputValue] = useState(query);
+
   const queryInput = useId();
 
   useEffect(() => {
@@ -18,34 +20,31 @@ const Form = () => {
     };
     const queryObject = getDataFromStorage(fallback) as IQueryObject;
     setQuery(queryObject.query);
+    setInputValue(queryObject.query);
     setPage(1);
   }, [setPage, setQuery]);
 
   const submitAction = useCallback(
     (query: string) => {
+      setQuery(query);
       setPage(1);
       setDataToLocalStorage({ query });
     },
-    [setPage],
+    [setPage, setQuery],
   );
 
-  const submitHandler = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      submitAction(query);
-    },
-    [query, submitAction],
-  );
+  const submitHandler = (e: FormEvent) => {
+    e.preventDefault();
+    submitAction(inputValue);
+  };
 
-  const resetFormHandler = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      if (query === '') return;
-      setQuery('');
-      submitAction('');
-    },
-    [query, setQuery, submitAction],
-  );
+  const resetFormHandler = (e: FormEvent) => {
+    e.preventDefault();
+    if (query === '') return;
+    setQuery('');
+    setInputValue('');
+    submitAction('');
+  };
 
   return (
     <form
@@ -57,8 +56,8 @@ const Form = () => {
       <input
         className={styles.form__input}
         type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         id={queryInput}
       />
       <button type="submit">Search</button>

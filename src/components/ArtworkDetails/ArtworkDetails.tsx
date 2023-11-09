@@ -1,4 +1,4 @@
-import { JSX, useCallback, useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { ArtworksTypes } from '@/types/api/artworks.types';
 import styles from './ArtworkDetails.module.scss';
 import parse from 'html-react-parser';
@@ -15,21 +15,20 @@ const ArtworkDetails = (): JSX.Element => {
 
   const { artworkId } = useParams();
 
-  const fetchArtworkById = useCallback((query: string) => {
-    const basePath = `${ApiConstants.BASE}${ApiConstants.ARTWORKS}/${query}`;
-    (fetchData(basePath) as Promise<IBaseDetailsArtworkResponse>)
-      .then((a) => {
-        setArtwork(a.data);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
   useEffect(() => {
+    const fetchArtworkById = (query: string) => {
+      const basePath = `${ApiConstants.BASE}${ApiConstants.ARTWORKS}/${query}`;
+      (fetchData(basePath) as Promise<IBaseDetailsArtworkResponse>)
+        .then((a) => {
+          setArtwork(a.data);
+        })
+        .catch((e) => console.log(e))
+        .finally(() => {
+          setLoading(false);
+        });
+    };
     fetchArtworkById(artworkId as string);
-  }, [artworkId, fetchArtworkById]);
+  }, [artworkId]);
 
   if (loading || !artwork) {
     return <Loader />;

@@ -1,14 +1,5 @@
-import {
-  FC,
-  JSX,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { FC, JSX, PropsWithChildren, useCallback, useState } from 'react';
 import { NavigationProviderContext } from '@/provider/NavigationProvider/NavigationProvider.context';
-import { IQueryObject } from '@/types/app.types';
-import { getDataFromStorage } from '@/services/localStorageServices';
 
 const INITIAL_LIMIT = 8;
 const INITIAL_PAGE = 1;
@@ -21,15 +12,6 @@ const NavigationProvider: FC<PropsWithChildren> = ({
   const [limit, setLimit] = useState<number>(INITIAL_LIMIT);
   const [page, setPage] = useState<number>(INITIAL_PAGE);
   const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fallback: IQueryObject = {
-      query: '',
-    };
-    const queryObject = getDataFromStorage(fallback) as IQueryObject;
-    setQuery(queryObject.query);
-    setLoading(true);
-  }, []);
 
   const handleChangePage = useCallback((i?: number, total?: number) => {
     setLoading(true);

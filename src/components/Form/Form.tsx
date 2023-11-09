@@ -1,29 +1,50 @@
-import { FC, FormEvent, useCallback } from 'react';
+import { FormEvent, useCallback, useEffect, useId } from 'react';
 import styles from './Form.module.scss';
+import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
+import {
+  getDataFromStorage,
+  setDataToLocalStorage,
+} from '@/services/localStorageServices';
+import { IQueryObject } from '@/types/app.types';
 
-interface IFormProps {
-  query: string;
-  handleChangeQuery: (arg: string) => void;
-  handleSubmit: (arg: string) => void;
-}
+const Form = () => {
+  const { query, setQuery, setPage } = useNavigationProvider();
 
-const Form: FC<IFormProps> = ({ query, handleChangeQuery, handleSubmit }) => {
+  const queryInput = useId();
+
+  useEffect(() => {
+    const fallback: IQueryObject = {
+      query: '',
+    };
+    const queryObject = getDataFromStorage(fallback) as IQueryObject;
+    setQuery(queryObject.query);
+    setPage(1);
+  }, [setPage, setQuery]);
+
+  const submitAction = useCallback(
+    (query: string) => {
+      setPage(1);
+      setDataToLocalStorage({ query });
+    },
+    [setPage],
+  );
+
   const submitHandler = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      handleSubmit(query);
+      submitAction(query);
     },
-    [handleSubmit, query],
+    [query, submitAction],
   );
 
   const resetFormHandler = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
       if (query === '') return;
-      handleChangeQuery('');
-      handleSubmit('');
+      setQuery('');
+      submitAction('');
     },
-    [handleChangeQuery, handleSubmit, query],
+    [query, setQuery, submitAction],
   );
 
   return (
@@ -32,13 +53,13 @@ const Form: FC<IFormProps> = ({ query, handleChangeQuery, handleSubmit }) => {
       onSubmit={submitHandler}
       onReset={resetFormHandler}
     >
-      <label htmlFor="queryInput">Query: </label>
+      <label htmlFor={queryInput}>Query: </label>
       <input
         className={styles.form__input}
         type="text"
         value={query}
-        onChange={(e) => handleChangeQuery(e.target.value)}
-        id={'queryInput'}
+        onChange={(e) => setQuery(e.target.value)}
+        id={queryInput}
       />
       <button type="submit">Search</button>
       <button type="reset">Reset</button>

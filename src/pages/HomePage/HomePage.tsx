@@ -3,7 +3,6 @@ import styles from './HomePage.module.scss';
 import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
 import { ApiConstants } from '@/api/api.constants';
 import { fetchData } from '@/api/api';
-import { setDataToLocalStorage } from '@/services/localStorageServices';
 import Form from '@/components/Form/Form';
 import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';
@@ -14,16 +13,8 @@ import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationP
 import { useArtworksProvider } from '@/provider/ArtworksProvider/ArtworksProvider.hooks';
 
 const HomePage = (): JSX.Element => {
-  const {
-    loading,
-    setLoading,
-    query,
-    setQuery,
-    limit,
-    setLimit,
-    page,
-    setPage,
-  } = useNavigationProvider();
+  const { loading, setLoading, query, limit, setLimit, page, setPage } =
+    useNavigationProvider();
   const { totalPages, setTotalPages, setArtworks, artworks } =
     useArtworksProvider();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -64,19 +55,10 @@ const HomePage = (): JSX.Element => {
     fetchArtworks(query);
   }, [fetchArtworks, loading, query]);
 
-  const handleSubmitForm = (query: string) => {
-    setPage(1);
-    setDataToLocalStorage({ query });
-  };
-
   return (
     <div className={styles.wrapper}>
       <Outlet />
-      <Form
-        query={query}
-        handleChangeQuery={setQuery}
-        handleSubmit={handleSubmitForm}
-      />
+      <Form />
       {loading && <Loader />}
       {!artworks.length && !loading && (
         <h1 className={styles.alert}>No artworks found here</h1>

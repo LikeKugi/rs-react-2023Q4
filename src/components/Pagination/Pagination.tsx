@@ -7,11 +7,11 @@ import { useSearchParams } from 'react-router-dom';
 const Pagination = (): JSX.Element => {
   const { page, setPage } = useNavigationProvider();
   const { totalPages } = useArtworksProvider();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     setSearchParams({ page: page.toString() });
-  }, [page, searchParams, setSearchParams]);
+  }, [page, setSearchParams]);
 
   return (
     <div className={styles.pagination}>

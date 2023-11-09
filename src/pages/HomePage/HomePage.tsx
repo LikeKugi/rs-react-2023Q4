@@ -18,6 +18,7 @@ const HomePage = (): JSX.Element => {
   const { setTotalPages, setArtworks, artworks } = useArtworksProvider();
 
   useEffect(() => {
+    if (!loading) return;
     const fetchArtworks = (query: string) => {
       setLoading(true);
       const initialParamsObj: IFetchQueryParams = {
@@ -44,7 +45,8 @@ const HomePage = (): JSX.Element => {
     };
 
     fetchArtworks(query);
-  }, [limit, page, query, setArtworks, setLoading, setTotalPages]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [limit, page, query, loading]);
 
   return (
     <div className={styles.wrapper}>

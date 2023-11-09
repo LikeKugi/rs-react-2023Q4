@@ -10,13 +10,14 @@ import { IBaseDetailsArtworkResponse } from '@/types/api/types';
 import Loader from '@/components/Loader/Loader';
 
 const ArtworkDetails = (): JSX.Element => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [artwork, setArtwork] = useState<ArtworksTypes | null>(null);
 
   const { artworkId } = useParams();
 
   useEffect(() => {
     const fetchArtworkById = (query: string) => {
+      setLoading(true);
       const basePath = `${ApiConstants.BASE}${ApiConstants.ARTWORKS}/${query}`;
       (fetchData(basePath) as Promise<IBaseDetailsArtworkResponse>)
         .then((a) => {

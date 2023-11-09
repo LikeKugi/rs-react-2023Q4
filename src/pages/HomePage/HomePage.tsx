@@ -1,4 +1,4 @@
-import { JSX, useCallback, useEffect } from 'react';
+import { JSX, useEffect } from 'react';
 import styles from './HomePage.module.scss';
 import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
 import { ApiConstants } from '@/api/api.constants';
@@ -17,8 +17,9 @@ const HomePage = (): JSX.Element => {
     useNavigationProvider();
   const { setTotalPages, setArtworks, artworks } = useArtworksProvider();
 
-  const fetchArtworks = useCallback(
-    (query: string) => {
+  useEffect(() => {
+    const fetchArtworks = (query: string) => {
+      setLoading(true);
       const initialParamsObj: IFetchQueryParams = {
         limit: limit.toString(),
         page: page.toString(),
@@ -40,14 +41,10 @@ const HomePage = (): JSX.Element => {
         .finally(() => {
           setLoading(false);
         });
-    },
-    [limit, page, setArtworks, setLoading, setTotalPages],
-  );
+    };
 
-  useEffect(() => {
-    if (!loading) return;
     fetchArtworks(query);
-  }, [fetchArtworks, loading, query]);
+  }, [limit, page, query, setArtworks, setLoading, setTotalPages]);
 
   return (
     <div className={styles.wrapper}>

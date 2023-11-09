@@ -14,7 +14,6 @@ const NavigationProvider: FC<PropsWithChildren> = ({
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleChangePage = useCallback((i?: number, total?: number) => {
-    setLoading(true);
     if (!i) {
       setPage(INITIAL_PAGE);
       return;
@@ -30,7 +29,6 @@ const NavigationProvider: FC<PropsWithChildren> = ({
   }, []);
 
   const handleChangeLimit = useCallback((i?: number) => {
-    setLoading(true);
     if (!i) {
       setLimit(INITIAL_LIMIT);
       return;

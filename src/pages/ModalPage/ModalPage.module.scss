@@ -6,7 +6,7 @@
   z-index: 5;
   display: flex;
   justify-content: center;
-  background-color: RGBA(0, 0, 0, 0.2);
+  background-color: var(--colors-modal-bg);
   overflow-y: auto;
 
   &__btn {

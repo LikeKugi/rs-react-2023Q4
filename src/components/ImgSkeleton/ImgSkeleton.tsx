@@ -1,4 +1,4 @@
-import { FC, JSX, useRef } from 'react';
+import { FC, JSX } from 'react';
 import styles from './ImgSkeleton.module.scss';
 
 interface IImgSkeletonProps {
@@ -14,12 +14,9 @@ const ImgSkeleton: FC<IImgSkeletonProps> = ({
   l,
   percentage,
 }): JSX.Element => {
-  const divRef = useRef<HTMLDivElement>(null);
-
   return (
     <div
       className={styles.skeleton}
-      ref={divRef}
       style={{
         backgroundColor: `HSLA(${h},${s}%,${l}%,${percentage.toFixed(1)})`,
       }}

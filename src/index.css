@@ -1,4 +1,5 @@
 :root {
+  --colors-modal-bg: RGBA(0, 0, 0, 0.2);
   --colors-text: hsl(0, 0%, 100%);
   --colors-bg: hsl(207, 26%, 17%);
   --colors-ui-base: hsl(209, 23%, 22%);

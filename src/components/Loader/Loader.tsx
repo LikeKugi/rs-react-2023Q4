@@ -4,7 +4,7 @@ const Loader = () => {
   return (
     <div className={styles.back}>
       <div className={styles.loader}>
-        {[...Array(4)].map((_, i) => (
+        {Array.from({ length: 4 }, (_, i) => (
           <div key={i} className={styles.div} />
         ))}
       </div>

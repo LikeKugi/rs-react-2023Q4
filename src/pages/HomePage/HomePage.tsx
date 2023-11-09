@@ -6,18 +6,16 @@ import { fetchData } from '@/api/api';
 import Form from '@/components/Form/Form';
 import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Pagination from '@/components/Pagination/Pagination';
 import LimitSelection from '@/components/LimitSelection/LimitSelection';
 import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
 import { useArtworksProvider } from '@/provider/ArtworksProvider/ArtworksProvider.hooks';
 
 const HomePage = (): JSX.Element => {
-  const { loading, setLoading, query, limit, setLimit, page, setPage } =
+  const { loading, setLoading, query, limit, setLimit, page } =
     useNavigationProvider();
-  const { totalPages, setTotalPages, setArtworks, artworks } =
-    useArtworksProvider();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { setTotalPages, setArtworks, artworks } = useArtworksProvider();
 
   const fetchArtworks = useCallback(
     (query: string) => {
@@ -47,10 +45,6 @@ const HomePage = (): JSX.Element => {
   );
 
   useEffect(() => {
-    setSearchParams({ page: page.toString() });
-  }, [page, searchParams, setSearchParams]);
-
-  useEffect(() => {
     if (!loading) return;
     fetchArtworks(query);
   }, [fetchArtworks, loading, query]);
@@ -66,11 +60,7 @@ const HomePage = (): JSX.Element => {
       {!!artworks.length && (
         <>
           <CardList />
-          <Pagination
-            currentPage={page}
-            setCurrentPage={setPage}
-            totalPages={totalPages}
-          />
+          <Pagination />
           <LimitSelection limit={limit} setLimit={setLimit} />
         </>
       )}

@@ -1,40 +1,41 @@
-import { FC, JSX } from 'react';
+import { JSX, useEffect } from 'react';
 import styles from './Pagination.module.scss';
+import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
+import { useArtworksProvider } from '@/provider/ArtworksProvider/ArtworksProvider.hooks';
+import { useSearchParams } from 'react-router-dom';
 
-interface IPaginationProps {
-  currentPage: number;
-  setCurrentPage: (arg?: number, total?: number) => void;
-  totalPages: number;
-}
+const Pagination = (): JSX.Element => {
+  const { page, setPage } = useNavigationProvider();
+  const { totalPages } = useArtworksProvider();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-const Pagination: FC<IPaginationProps> = ({
-  currentPage,
-  setCurrentPage,
-  totalPages,
-}): JSX.Element => {
+  useEffect(() => {
+    setSearchParams({ page: page.toString() });
+  }, [page, searchParams, setSearchParams]);
+
   return (
     <div className={styles.pagination}>
-      <button disabled={currentPage === 1} onClick={() => setCurrentPage(1)}>
+      <button disabled={page === 1} onClick={() => setPage(1)}>
         &lt;&lt;
       </button>
       <button
-        disabled={currentPage === 1}
-        onClick={() => setCurrentPage(currentPage - 1, totalPages)}
+        disabled={page === 1}
+        onClick={() => setPage(page - 1, totalPages)}
       >
         &lt;
       </button>
       <span className={styles.pagination__current}>
-        {currentPage} / {totalPages}
+        {page} / {totalPages}
       </span>
       <button
-        disabled={currentPage === totalPages}
-        onClick={() => setCurrentPage(currentPage + 1, totalPages)}
+        disabled={page === totalPages}
+        onClick={() => setPage(page + 1, totalPages)}
       >
         &gt;
       </button>
       <button
-        disabled={currentPage === totalPages}
-        onClick={() => setCurrentPage(totalPages, totalPages)}
+        disabled={page === totalPages}
+        onClick={() => setPage(totalPages, totalPages)}
       >
         &gt;&gt;
       </button>

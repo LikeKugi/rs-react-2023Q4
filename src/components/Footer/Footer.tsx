@@ -29,7 +29,7 @@ const Footer = (): JSX.Element => {
         <nav className={styles.footer__nav}>
           <ul className={styles.footer__list}>
             {links.map((link) => (
-              <li className={styles.footer__item}>
+              <li className={styles.footer__item} key={link.href}>
                 <Link
                   className={styles.footer__link}
                   to={link.href}

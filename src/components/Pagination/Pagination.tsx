@@ -10,6 +10,7 @@ const Pagination = (): JSX.Element => {
   const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
+    if (!page) return;
     setSearchParams({ page: page.toString() });
   }, [page, setSearchParams]);
 
@@ -20,7 +21,7 @@ const Pagination = (): JSX.Element => {
       </button>
       <button
         disabled={page === 1}
-        onClick={() => setPage(page - 1, totalPages)}
+        onClick={() => setPage(page ? page - 1 : 1, totalPages)}
       >
         &lt;
       </button>
@@ -29,7 +30,7 @@ const Pagination = (): JSX.Element => {
       </span>
       <button
         disabled={page === totalPages}
-        onClick={() => setPage(page + 1, totalPages)}
+        onClick={() => setPage(page ? page + 1 : 1, totalPages)}
       >
         &gt;
       </button>

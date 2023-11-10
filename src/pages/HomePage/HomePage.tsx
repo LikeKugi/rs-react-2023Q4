@@ -1,4 +1,4 @@
-import { JSX, useEffect } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import styles from './HomePage.module.scss';
 import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
 import { ApiConstants } from '@/api/api.constants';
@@ -13,12 +13,12 @@ import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationP
 import { useArtworksProvider } from '@/provider/ArtworksProvider/ArtworksProvider.hooks';
 
 const HomePage = (): JSX.Element => {
-  const { loading, setLoading, query, limit, setLimit, page } =
-    useNavigationProvider();
+  const { query, limit, setLimit, page } = useNavigationProvider();
   const { setTotalPages, setArtworks, artworks } = useArtworksProvider();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!loading) return;
+    if (!page) return;
     const fetchArtworks = (query: string) => {
       setLoading(true);
       const initialParamsObj: IFetchQueryParams = {
@@ -46,7 +46,7 @@ const HomePage = (): JSX.Element => {
 
     fetchArtworks(query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [limit, page, query, loading]);
+  }, [limit, page, query]);
 
   return (
     <div className={styles.wrapper}>

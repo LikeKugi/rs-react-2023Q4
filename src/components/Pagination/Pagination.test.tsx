@@ -24,8 +24,6 @@ describe('<Pagination /> component tests', () => {
       setPage: vi.fn(),
       limit: 12,
       setLimit: vi.fn(),
-      loading: false,
-      setLoading: vi.fn(),
     });
     useSpyArtworks.mockReturnValue({
       totalPages: 50,
@@ -56,8 +54,6 @@ describe('<Pagination /> component tests', () => {
         setPage: vi.fn(),
         limit: 12,
         setLimit: vi.fn(),
-        loading: false,
-        setLoading: vi.fn(),
       });
       useSpyArtworks.mockReturnValue({
         totalPages: 15,

@@ -10,11 +10,9 @@ const NavigationProvider: FC<PropsWithChildren> = ({
 }): JSX.Element => {
   const [query, setQuery] = useState<string>(INITIAL_QUERY);
   const [limit, setLimit] = useState<number>(INITIAL_LIMIT);
-  const [page, setPage] = useState<number>(INITIAL_PAGE);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number | null>(null);
 
   const handleChangePage = useCallback((i?: number, total?: number) => {
-    setLoading(true);
     if (!i) {
       setPage(INITIAL_PAGE);
       return;
@@ -30,7 +28,6 @@ const NavigationProvider: FC<PropsWithChildren> = ({
   }, []);
 
   const handleChangeLimit = useCallback((i?: number) => {
-    setLoading(true);
     if (!i) {
       setLimit(INITIAL_LIMIT);
       return;
@@ -48,14 +45,6 @@ const NavigationProvider: FC<PropsWithChildren> = ({
     setQuery(query);
   }, []);
 
-  const handleLoading = useCallback((status?: boolean) => {
-    if (!status) {
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
-  }, []);
-
   return (
     <NavigationProviderContext.Provider
       value={{
@@ -63,10 +52,8 @@ const NavigationProvider: FC<PropsWithChildren> = ({
         setPage: handleChangePage,
         limit,
         setLimit: handleChangeLimit,
-        loading,
         query,
         setQuery: handleChangeQuery,
-        setLoading: handleLoading,
       }}
     >
       {children}

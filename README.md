@@ -1,35 +1,44 @@
-# Week2
+# Week 3
 
-## React. Routing
+## React. Tests/Context API
 
-The task should be based on the previous task. We're using [React Router v6.x ](https://reactrouter.com/en/main/start/overview) in this task.
-
+The task should be based on the previous task.
 
 ### What should be done:
 
 1. Create a separate branch for this task from the previous task's branch.
-2. All components must be changed to **functional components**, except **Error Boundary** components, as error boundaries in React still need to be class components.
-3. All logic should be split into components:
-   - If you need an access either to the component's lifecycle or the state **use hooks**.
-   - All data should be stored in the **component's state**.
-4. Add routing to your application using **React Router**.
-5. Add pagination:
-   - Implement pagination for your existing item list
-   - Display the current page in the browser URL using query parameters (e.g. ?page=2, e.g /search/2).
-   - The pagination component should appear after receiving the list of all items.
-   - If the user changes items on the page, make a new API call and display the results from the first page.
-6. Main page displays search results. On item click page should be split into 2 section:
-   - left section will continue to display search results;
-   - right section should display details using Router Outlet (show loading indicator while making an additional call for details, add control for closing the section, also section should be closed when user clicks on the left section)
-   - Reflect in the url that "Details" section has been opened for the selected item (e.g. /?frontpage=2&details=1).
+2. Implement custom state management using the Context API.
+    - Utilize the created context to store both the value entered in the Search component and the list of items received from the API;
+    - Ensure that all components that need to access this data use the context.
+3. Add and configure test runner: Jest or Vitest. Test runner should show the test coverage. You should aim to reach at least 80% of the test coverage.
+4. Add testing library: React Testing Library. You should add tests for the several scenarios keeping in mind that mocked data should be used instead of real API calls.
+5. Tests for the Card List component:
+    - Verify that the component renders the specified number of cards;
+    - Check that an appropriate message is displayed if no cards are present.
+6. Tests for the Card component:
+    - Ensure that the card component renders the relevant card data;
+    - Validate that clicking on a card opens a detailed card component;
+    - Check that clicking triggers an additional API call to fetch detailed information.
+7. Tests for the Detailed Card component:
+    - Check that a loading indicator is displayed while fetching data;
+    - Make sure the detailed card component correctly displays the detailed card data;
+    - Ensure that clicking the close button hides the component.
+8. Tests for the Pagination component:
+    - Make sure the component updates URL query parameter when page changes.
+9. Tests for the Search component:
+    - Verify that clicking the Search button saves the entered value to the local storage;
+    - Check that the component retrieves the value from the local storage upon mounting.
+10. Tests for the 404 Page component:
 
-### Questions:
+- Ensure that the 404 page is displayed when navigating to an invalid route.
 
-You should use Discord as the primary means of communication.
+11. Lastly, update Husky to run tests on the pre-push hook, ensuring that tests are automatically executed before any code is pushed.
 
-Additionally, we will attempt to collect your questions regarding the 2nd Module using a special form, which will be provided via Discord at the beginning of the 2nd Module. Questions will be collected in the Module 02 section of the same spreadsheet.
+### Questions
 
-Please **check the answers carefully before posting** a question, as your question might have already been answered. We will strive to hold a session for each module, providing answers to some of the questions.
+You should be using Discord as the main mean of the communication.
+Also we will try to collect your questions regarding the 3rd Module using special form, which will be provided via the Discord with the 3rd Module start. Questions will be collected in Module 03 section of the same spreadsheet. Please, check answers carefully before posting the question, may be your question has been answered already.
+We will try to conduct a session for each module providing answers for some questions.
 
 ### Score
 
@@ -37,45 +46,39 @@ The task will be checked during cross-check and cross-code-review.
 
 #### Cross-code-review process
 
-1. Clone the repository you are going to review.
-2. Install all the necessary dependencies.
-3. Run linting using the specified command in the package.json file; the output should not contain any errors or warnings.
-4. Review the code. Pay attention to the following "code smells":
-   - props drilling,
-   - large and complex components (also known as "god" components),
-   - direct DOM manipulation,
-   - and so on.
+1. Clone the repository you are going to review
+2. Install all the required dependencies
+3. Run linting using special command in package.json file, output should not produce any errors or warnings
+4. Run tests using special command in package.json file, all tests should pass, test coverage should be shown after running all the tests
+5. Review the code. Pay attention at the following "code smells": props drilling; large, complex components aka "god" components; direct DOM manipulation, etc.
 
-When reviewing the code, try to pay attention to the following principles:
+When reviewing the code try pay attention at the following principles:
 
-- Keep the code as simple as possible: KISS (Keep It Simple, Stupid).
-- Avoid unnecessary repetition: DRY (Don't Repeat Yourself).
-- Remove what is not necessary: YAGNI (You Ain't Gonna Need It).
+- Write code as simply as possible: KISS
+- Avoid unnecessary repetition: DRY
+- Delete what is not needed: YAGNI
 
-We should also mention the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) and other [SOLID](https://en.wikipedia.org/wiki/SOLID) principles. For further guidance, please refer to [this article](https://dmitripavlutin.com/7-architectural-attributes-of-a-reliable-react-component/).
-
-Last but not least, please check for the presence of comments in the code. Ideally, there should be no comments at all. Sometimes, people tend to comment code that is unnecessary. Thus, consider removing such comments entirely. Remember, if you ever need to refer to previous versions of the code, you can always consult the git history. Furthermore, keep in mind
-that [comments can be misleading](https://blog.devgenius.io/code-should-be-the-one-version-of-the-truth-dont-add-comments-b0bcd8631a9a).
+We also need to mention the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) and other [SOLID](https://en.wikipedia.org/wiki/SOLID) principles
+Please, check [this article](https://dmitripavlutin.com/7-architectural-attributes-of-a-reliable-react-component/) for reference
+Last, but not least - check the presence of the comments. Ideally there shouldn't be any comments at all. Sometimes people just comment code which is not needed. So why not to remove it entirely? In case you will need to restore this code, you can always refer to the git history. And more - [comments are lies](https://blog.devgenius.io/code-should-be-the-one-version-of-the-truth-dont-add-comments-b0bcd8631a9a)
 
 #### Cross-check process
 
-Run the application and confirm the proper functioning of its features (cross-check).
+Run app and check that the functionality is working (cross-check)
 
-### Points, Scoring
+#### Points
 
-A student can achieve a maximum of 100 points.
+##### Student can get 100 points:
 
-#### Cross-check (score can be less if some parts of the functionality don't work)
+- Custom state management using the Context API is implemented - **5 points**
+- The Search component value is stored in the context - **5 points**
+- The list of items received from the API is stored in the context - **5 points**
+- The context is used in components that need access to the data - **5 points**
+- React Testing Library and Jest or Vitest are added and configured - **10 points**
+- Test cases - **60 points** (5 points per each)
+- Husky runs tests on pre-push - **10 points**
 
-* Conversion of class components to functional components with hooks - **10**
-* Pagination is present in both URL and on the page - **20**
-* User-initiated change of items per page triggers a new request, displaying the first page - **15**
-* Upon clicking, open details panel on the right side of the page: - **5**
-   - use router outlet, left side of the page should continue displaying the list of results - **10**
-   - initiate an additional API call, display a loader, and update the URL - **5**
-   - Details panel should be closed either on the "close" button click or on the main panel click - **10**
-
-#### Penalties
+##### Penalties:
 
 - TypeScript isn't used: **-95 points**
 - Usage of _any_: **-20 points per each**
@@ -84,25 +87,23 @@ A student can achieve a maximum of 100 points.
 - Presence of _code-smells_ (God-object, chunks of duplicate code), commented code sections: **-10 points per each**
 - Usage of Redux or other state management libraries: **-100 points**
 - Usage of component libraries, e.g. Material UI, Ant Design: **-100 points**
+- Test coverage is less than 80%: **-30 points**
 - Commits after the deadline: **-40 points**
 
-### Repository Requirements
+### Repository requirements
 
-* The task should be completed in **your personal private repository**.
-* In the repository, create a branch from the **previous task** branch using the task's name and work within this newly created branch.
-* The commit history should accurately reflect the process of creating the app. Refer to [Commit requirements](https://docs.rs.school/#/git-convention?id=%D0%A2%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B8%D0%BC%D0%B5%D0%BD%D0%B0%D0%BC-%D0%BA%D0%BE%D0%BC%D0%BC%D0%B8%D1%82%D0%BE%D0%B2) [RU] for details.
-* Once development is complete, you must create a Pull Request from the app's branch to the `main` branch. Refer to [Pull Request requirements](https://docs.rs.school/#/pull-request-review-process?id=%D0%A2%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-pull-request-pr) [RU] for details.
-* After completing the module, make your private repository accessible for cross-checks and cross-code-reviews for the duration of the next module (one week). After this week concludes, the repository should be set to private once again.
+- The task should be completed in **your personal private repository**.
+- In the repository, create a branch from the **previous task** branch using the task's name and work within this newly created branch.
+- The commit history should reflect the process of creating the app. Refer to [Commit requirements](https://docs.rs.school/#/git-convention?id=%D0%A2%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%B8%D0%BC%D0%B5%D0%BD%D0%B0%D0%BC-%D0%BA%D0%BE%D0%BC%D0%BC%D0%B8%D1%82%D0%BE%D0%B2) [RU] for details.
+- Once development is complete, you need to create a Pull Request from the current task branch to the previous task branch. Refer to [Pull Request requirements](https://docs.rs.school/#/pull-request-review-process?id=%D0%A2%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-pull-request-pr) [RU] for details.
+- After completing the module, private repository should be exposed for the duration of the cross-check (please check the schedule). When the cross-check is finished, repository should be made private again.
 
-**Do not merge the Pull Request from the development branch to the `main` branch.**
+  **Do not merge Pull Request from the development branch to the `main` branch**
 
-### Theory:
+### Useful links
 
-- React Router: https://reactrouter.com/
-- React Router 6 video tutorials
-   + [React Router 6 Tutorial](https://www.youtube.com/watch?v=OMQ2QARHPo0&list=PL4cUxeGkcC9iVKmtNuCeIswnQ97in2GGf)
-   + [Build a Budgeting App with React Router](https://www.youtube.com/watch?v=VpzeeBeVWeg&list=PL4cUxeGkcC9iNnY07bh_UPaRIQZcJfARY)
-   + [React Router in Depth](https://www.youtube.com/watch?v=OMQ2QARHPo0&list=PL4cUxeGkcC9iVKmtNuCeIswnQ97in2GGf)
-- Examples https://github.com/remix-run/react-router/tree/dev/examples
-
-Good luck with the assignment! If you have any further questions, feel free to ask.
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [Vitest](https://vitest.dev/guide/)
+- [Jest](https://jestjs.io/docs/getting-started)
+- [Mock Service Worker](https://mswjs.io/docs/)
+- [Pattern for writing good tests](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)

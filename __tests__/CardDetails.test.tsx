@@ -1,6 +1,6 @@
-import { describe, vi, beforeEach, it, expect } from 'vitest';
+import { describe, vi, beforeEach, it, expect, afterEach } from 'vitest';
 import createFetchMock from 'vitest-fetch-mock';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import Card from '../src/components/Card/Card';
 import { singleResponse } from './CardDetails.test-mocks';
@@ -25,6 +25,10 @@ describe('Card and Details tests', () => {
 
   beforeEach(() => {
     fetchData.doMock();
+  });
+
+  afterEach(() => {
+    cleanup();
   });
 
   it('should render layout', function () {

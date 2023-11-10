@@ -32,11 +32,11 @@ export interface ArtworksTypes {
   classification_titles: string[];
   color: IBaseColor | null;
   colorfulness: number;
-  copyright_notice: string;
+  copyright_notice: string | null;
   credit_line: string;
   date_display: string;
   date_end: string | number;
-  date_qualifier_id: string | null;
+  date_qualifier_id: string | number | null;
   date_qualifier_title: string;
   date_start: string | number;
   department_id: string;
@@ -75,7 +75,7 @@ export interface ArtworksTypes {
   nomisma_id: string | number | null;
   on_loan_display: string | null;
   place_of_origin: string;
-  provenance_text: string;
+  provenance_text: string | null;
   publication_history: string;
   publishing_verification_level: string;
   section_ids: string[];
@@ -89,7 +89,7 @@ export interface ArtworksTypes {
   subject_id: string | null;
   subject_ids: string[];
   subject_titles: string[];
-  suggest_autocomplete_all: IBaseSuggestedAutocomplete;
+  suggest_autocomplete_all: IBaseSuggestedAutocomplete[];
   technique_id: string | null;
   technique_ids: string[];
   technique_titles: string[];
@@ -97,13 +97,13 @@ export interface ArtworksTypes {
   text_ids: string[];
   theme_titles: string[];
   thumbnail: {
-    alt_text: string;
-    height: number;
-    lqip: string;
-    width: number;
+    alt_text: string | null;
+    height: number | null;
+    lqip: string | null;
+    width: number | null;
   };
   timestamp: string;
   title: string;
   updated_at: string;
-  video_ids: string;
+  video_ids: string[];
 }

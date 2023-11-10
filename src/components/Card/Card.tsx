@@ -6,7 +6,16 @@ import { RouterConstants } from '@/routes/RouterConstants';
 import ImgSkeleton from '@/components/ImgSkeleton/ImgSkeleton';
 
 interface ICardProps {
-  content: ArtworksTypes;
+  content: Pick<
+    ArtworksTypes,
+    | 'color'
+    | 'id'
+    | 'image_id'
+    | 'title'
+    | 'artist_title'
+    | 'date_start'
+    | 'date_end'
+  >;
 }
 
 const Card: FC<ICardProps> = ({ content }) => {

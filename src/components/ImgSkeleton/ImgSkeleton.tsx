@@ -20,6 +20,7 @@ const ImgSkeleton: FC<IImgSkeletonProps> = ({
       style={{
         backgroundColor: `HSLA(${h},${s}%,${l}%,${percentage.toFixed(1)})`,
       }}
+      role="skeleton"
     />
   );
 };

@@ -34,7 +34,6 @@ const NavigationProvider: FC<PropsWithChildren> = ({
     }
     if (i < 0 || i % 4) return;
     setLimit(i);
-    setPage(1);
   }, []);
 
   const handleChangeQuery = useCallback((query?: string) => {

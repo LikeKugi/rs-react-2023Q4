@@ -12,6 +12,7 @@ const ModalPage = (): JSX.Element => {
       <div
         className={styles.modal}
         onClick={() => navigate(previousLocation || '/')}
+        role="wrapper"
       >
         <div className={styles.content} onClick={(e) => e.stopPropagation()}>
           <Outlet />

@@ -75,4 +75,27 @@ describe('<Pagination /> component tests', () => {
       expect(mockedSetterUrl).toHaveBeenCalled();
     },
   );
+
+  it('should render component if page is null', function () {
+    useSpyNavigation.mockReturnValue({
+      query: '',
+      setQuery: vi.fn(),
+      page: null,
+      setPage: vi.fn(),
+      limit: 12,
+      setLimit: vi.fn(),
+    });
+    useSpyArtworks.mockReturnValue({
+      totalPages: 50,
+      artworks: [],
+      setArtworks: vi.fn(),
+      setTotalPages: vi.fn(),
+    });
+    render(
+      <BrowserRouter>
+        <Pagination />
+      </BrowserRouter>,
+    );
+    expect(screen.queryByText(/50/)).toBeInTheDocument();
+  });
 });

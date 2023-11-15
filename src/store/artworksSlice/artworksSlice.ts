@@ -1,23 +1,32 @@
-import { IArtworksSlice } from '@/types/store/artworksSlice.types';
+import { IArtworksSlice } from '@/store/artworksSlice/artworksSlice.types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@/store/store';
+import { artworksApi } from '@/api/artworksApi';
 
 const initialState: IArtworksSlice = {
   artworks: [],
-  error: null,
-  isLoading: false,
 };
 
 export const artworksSlice = createSlice({
-  name: 'artworks',
   initialState,
+  name: 'artworks',
   reducers: {},
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      artworksApi.endpoints.getArtworks.matchFulfilled,
+      (state, { payload }) => {
+        state.artworks = payload.data;
+      },
+    );
+    builder.addMatcher(
+      artworksApi.endpoints.searchArtwork.matchFulfilled,
+      (state, { payload }) => {
+        state.artworks = payload.data;
+      },
+    );
+  },
 });
 
 export const selectArtworks = (state: RootState) => state.artworks.artworks;
-export const selectArtworksError = (state: RootState) => state.artworks.error;
-export const selectArtworksIsLoading = (state: RootState) =>
-  state.artworks.isLoading;
 
 export const ArtworksReducer = artworksSlice.reducer;

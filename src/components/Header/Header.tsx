@@ -2,17 +2,18 @@ import { FC } from 'react';
 import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import { RouterConstants } from '@/routes/RouterConstants';
-import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
+import { useAppDispatch } from '@/store/hooks';
+import { setPage } from '@/store/navigationSlice/navigationSlice';
 
 const Header: FC = () => {
-  const { setPage } = useNavigationProvider();
+  const dispatch = useAppDispatch();
   return (
     <header className={styles.header}>
       <div className={styles.header__container}>
         <Link
           className={styles.header__link}
           to={RouterConstants.INDEX}
-          onClick={() => setPage(1)}
+          onClick={() => dispatch(setPage(1))}
         >
           <h3>Rs School React App</h3>
         </Link>

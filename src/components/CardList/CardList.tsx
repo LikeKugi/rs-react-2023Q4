@@ -1,9 +1,10 @@
 import Card from '@/components/Card/Card';
 import styles from './CardList.module.scss';
-import { useArtworksProvider } from '@/provider/ArtworksProvider/ArtworksProvider.hooks';
+import { useAppSelector } from '@/store/hooks';
+import { selectArtworks } from '@/store/artworksSlice/artworksSlice';
 
 const CardList = () => {
-  const { artworks: cards } = useArtworksProvider();
+  const cards = useAppSelector(selectArtworks);
 
   return (
     <div className={styles.list}>

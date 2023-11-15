@@ -1,12 +1,17 @@
 import { JSX, useEffect } from 'react';
 import styles from './Pagination.module.scss';
-import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
-import { useArtworksProvider } from '@/provider/ArtworksProvider/ArtworksProvider.hooks';
 import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import {
+  selectNavigationPage,
+  selectNavigationTotalPages,
+  setPage,
+} from '@/store/navigationSlice/navigationSlice';
 
 const Pagination = (): JSX.Element => {
-  const { page, setPage } = useNavigationProvider();
-  const { totalPages } = useArtworksProvider();
+  const dispatch = useAppDispatch();
+  const page = useAppSelector(selectNavigationPage);
+  const totalPages = useAppSelector(selectNavigationTotalPages);
   const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -16,13 +21,10 @@ const Pagination = (): JSX.Element => {
 
   return (
     <div className={styles.pagination}>
-      <button disabled={page === 1} onClick={() => setPage(1)}>
+      <button disabled={page === 1} onClick={() => dispatch(setPage(1))}>
         &lt;&lt;
       </button>
-      <button
-        disabled={page === 1}
-        onClick={() => setPage(page ? page - 1 : 1, totalPages)}
-      >
+      <button disabled={page === 1} onClick={() => dispatch(setPage(page - 1))}>
         &lt;
       </button>
       <span className={styles.pagination__current}>
@@ -30,13 +32,13 @@ const Pagination = (): JSX.Element => {
       </span>
       <button
         disabled={page === totalPages}
-        onClick={() => setPage(page ? page + 1 : 1, totalPages)}
+        onClick={() => dispatch(setPage(page + 1))}
       >
         &gt;
       </button>
       <button
         disabled={page === totalPages}
-        onClick={() => setPage(totalPages, totalPages)}
+        onClick={() => dispatch(setPage(totalPages))}
       >
         &gt;&gt;
       </button>

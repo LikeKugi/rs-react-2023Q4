@@ -8,12 +8,11 @@ import { ApiConstants } from '@/api/api.constants';
 
 export const artworksApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getArtworks: build.query<IBaseTypeResponse, URLSearchParams>({
+    getArtworks: build.query<IBaseTypeResponse, string>({
       query(params) {
         return {
-          url: ApiConstants.ARTWORKS,
+          url: `${ApiConstants.ARTWORKS}?${params}`,
           method: 'GET',
-          params,
         };
       },
     }),
@@ -28,12 +27,11 @@ export const artworksApi = api.injectEndpoints({
         };
       },
     }),
-    searchArtwork: build.query<IBaseTypeResponse, URLSearchParams>({
+    searchArtwork: build.query<IBaseTypeResponse, string>({
       query(params) {
         return {
-          url: `${ApiConstants.ARTWORKS}/${ApiConstants.SEARCH}`,
+          url: `${ApiConstants.ARTWORKS}/${ApiConstants.SEARCH}?${params}`,
           method: 'GET',
-          params,
         };
       },
     }),

@@ -1,50 +1,55 @@
-import { JSX, useEffect, useState } from 'react';
+import { JSX, useEffect } from 'react';
 import styles from './HomePage.module.scss';
-import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
-import { ApiConstants } from '@/api/api.constants';
-import { fetchData } from '@/api/_api';
+import { IFetchQueryParams } from '@/types/api/types';
 import Form from '@/components/Form/Form';
 import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
+import {
+  useLazyGetArtworksQuery,
+  useLazySearchArtworkQuery,
+} from '@/api/artworksApi';
+import { useAppSelector } from '@/store/hooks';
+import { selectIsLoadingArtworks } from '@/store/networkSlice/networkSlice';
+import { selectArtworks } from '@/store/artworksSlice/artworksSlice';
+import {
+  selectNavigationLimit,
+  selectNavigationPage,
+  selectNavigationQuery,
+} from '@/store/navigationSlice/navigationSlice';
 import Pagination from '@/components/Pagination/Pagination';
 import LimitSelection from '@/components/LimitSelection/LimitSelection';
-import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
-import { useArtworksProvider } from '@/provider/ArtworksProvider/ArtworksProvider.hooks';
 
 const HomePage = (): JSX.Element => {
-  const { query, limit, setLimit, page } = useNavigationProvider();
-  const { setTotalPages, setArtworks, artworks } = useArtworksProvider();
-  const [loading, setLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const query = useAppSelector(selectNavigationQuery);
+  const limit = useAppSelector(selectNavigationLimit);
+  const page = useAppSelector(selectNavigationPage);
+  const [getArtworks] = useLazyGetArtworksQuery();
+
+  const [searchArtworks] = useLazySearchArtworkQuery();
+  const isLoading = useAppSelector(selectIsLoadingArtworks);
+
+  const artworks = useAppSelector(selectArtworks);
 
   useEffect(() => {
-    if (!page) return;
-    const fetchArtworks = (query: string) => {
-      setLoading(true);
-      const initialParamsObj: IFetchQueryParams = {
-        limit: limit.toString(),
-        page: page.toString(),
-        fields: 'id,title,image_id,artist_title,date_start,date_end,color',
-      };
-      if (query) {
-        initialParamsObj.q = query;
-      }
-      const params = new URLSearchParams(initialParamsObj);
-      const basePath: string = query
-        ? `${ApiConstants.BASE}${ApiConstants.ARTWORKS}/${ApiConstants.SEARCH}?${params}`
-        : `${ApiConstants.BASE}${ApiConstants.ARTWORKS}?${params}`;
-      (fetchData(basePath) as Promise<IBaseTypeResponse>)
-        .then((a) => {
-          setArtworks(a.data);
-          setTotalPages(a.pagination.total_pages);
-        })
-        .catch((e) => console.log(e))
-        .finally(() => {
-          setLoading(false);
-        });
+    const initialParamsObj: IFetchQueryParams = {
+      limit: limit.toString(),
+      page: page
+        ? page.toString()
+        : Number(searchParams.get('page')).toString() || '1',
+      fields: 'id,title,image_id,artist_title,date_start,date_end,color',
     };
+    if (query) {
+      initialParamsObj.q = query;
+    }
+    const params = new URLSearchParams(initialParamsObj);
+    if (params.has('q')) {
+      searchArtworks(params.toString());
+    } else {
+      getArtworks(params.toString());
+    }
 
-    fetchArtworks(query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, page, query]);
 
@@ -52,15 +57,15 @@ const HomePage = (): JSX.Element => {
     <div className={styles.wrapper}>
       <Outlet />
       <Form />
-      {loading && <Loader />}
-      {!artworks.length && !loading && (
+      {isLoading && <Loader />}
+      {!artworks.length && !isLoading && (
         <h1 className={styles.alert}>No artworks found here</h1>
       )}
       {!!artworks.length && (
         <>
           <CardList />
           <Pagination />
-          <LimitSelection limit={limit} setLimit={setLimit} />
+          <LimitSelection />
         </>
       )}
     </div>

@@ -21,11 +21,10 @@ export const artworksApi = api.injectEndpoints({
       IBaseDetailsArtworkResponse,
       IBaseDetailsArtworkRequest
     >({
-      query(queryObj) {
+      query(artworkId) {
         return {
-          url: `${ApiConstants.ARTWORKS}/${queryObj.artworkId}`,
+          url: `${ApiConstants.ARTWORKS}/${artworkId}`,
           method: 'GET',
-          params: queryObj.params,
         };
       },
     }),

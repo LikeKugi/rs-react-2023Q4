@@ -4,34 +4,20 @@ import styles from './ArtworkDetails.module.scss';
 import parse from 'html-react-parser';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import { useParams } from 'react-router-dom';
-import { ApiConstants } from '@/api/api.constants';
-import { fetchData } from '@/api/_api';
-import { IBaseDetailsArtworkResponse } from '@/types/api/types';
 import Loader from '@/components/Loader/Loader';
+import { useGetArtworkQuery } from '@/api/artworksApi';
 
 const ArtworkDetails = (): JSX.Element => {
-  const [loading, setLoading] = useState(false);
   const [artwork, setArtwork] = useState<IArtwork | null>(null);
-
   const { artworkId } = useParams();
+  const { data, isLoading } = useGetArtworkQuery(artworkId as string);
 
   useEffect(() => {
-    const fetchArtworkById = (query: string) => {
-      setLoading(true);
-      const basePath = `${ApiConstants.BASE}${ApiConstants.ARTWORKS}/${query}`;
-      (fetchData(basePath) as Promise<IBaseDetailsArtworkResponse>)
-        .then((a) => {
-          setArtwork(a.data);
-        })
-        .catch((e) => console.log(e))
-        .finally(() => {
-          setLoading(false);
-        });
-    };
-    fetchArtworkById(artworkId as string);
-  }, [artworkId]);
+    if (!data) return;
+    setArtwork(data.data);
+  }, [data]);
 
-  if (loading || !artwork) {
+  if (isLoading || !data || !artwork) {
     return <Loader />;
   }
 

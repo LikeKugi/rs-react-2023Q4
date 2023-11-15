@@ -31,10 +31,7 @@ export interface IBaseDetailsArtworkResponse {
   info: IBaseInfoResponse;
 }
 
-export interface IBaseDetailsArtworkRequest {
-  params: URLSearchParams;
-  artworkId: string | number;
-}
+export type IBaseDetailsArtworkRequest = string | number;
 
 export interface IBaseColor {
   h: number;

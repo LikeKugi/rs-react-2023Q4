@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ArtworksTypes } from '@/types/api/artworks.types';
+import { IArtwork } from '@/types/api/artworks.types';
 import styles from './Card.module.scss';
 import { Link } from 'react-router-dom';
 import { RouterConstants } from '@/routes/RouterConstants';
@@ -7,7 +7,7 @@ import ImgSkeleton from '@/components/ImgSkeleton/ImgSkeleton';
 
 interface ICardProps {
   content: Pick<
-    ArtworksTypes,
+    IArtwork,
     | 'color'
     | 'id'
     | 'image_id'

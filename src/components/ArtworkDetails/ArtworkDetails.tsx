@@ -1,17 +1,17 @@
 import { JSX, useEffect, useState } from 'react';
-import { ArtworksTypes } from '@/types/api/artworks.types';
+import { IArtwork } from '@/types/api/artworks.types';
 import styles from './ArtworkDetails.module.scss';
 import parse from 'html-react-parser';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import { useParams } from 'react-router-dom';
 import { ApiConstants } from '@/api/api.constants';
-import { fetchData } from '@/api/api';
+import { fetchData } from '@/api/_api';
 import { IBaseDetailsArtworkResponse } from '@/types/api/types';
 import Loader from '@/components/Loader/Loader';
 
 const ArtworkDetails = (): JSX.Element => {
   const [loading, setLoading] = useState(false);
-  const [artwork, setArtwork] = useState<ArtworksTypes | null>(null);
+  const [artwork, setArtwork] = useState<IArtwork | null>(null);
 
   const { artworkId } = useParams();
 

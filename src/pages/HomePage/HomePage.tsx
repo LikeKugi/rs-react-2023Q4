@@ -2,7 +2,7 @@ import { JSX, useEffect, useState } from 'react';
 import styles from './HomePage.module.scss';
 import { IBaseTypeResponse, IFetchQueryParams } from '@/types/api/types';
 import { ApiConstants } from '@/api/api.constants';
-import { fetchData } from '@/api/api';
+import { fetchData } from '@/api/_api';
 import Form from '@/components/Form/Form';
 import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';

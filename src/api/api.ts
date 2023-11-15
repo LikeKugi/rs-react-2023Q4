@@ -1,30 +1,12 @@
-import { fetchClientFunction } from '@/api/api.types';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ApiConstants } from '@/api/api.constants';
 
-export const fetchData: fetchClientFunction = async (endpoint, payload) => {
-  const { body, ...customConfig } = payload ?? {};
-  const headers = {
-    'Content-Type': 'application/json',
-  };
-  const config: RequestInit = {
-    method: body ? 'POST' : 'GET',
-    ...customConfig,
-    headers: {
-      ...headers,
-      ...customConfig.headers,
-    },
-  };
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: ApiConstants.BASE,
+  }),
+  endpoints: () => ({}),
+});
 
-  if (body) {
-    config.body = body;
-  }
-  try {
-    const response = await fetch(endpoint, config);
-
-    if (!response.ok) {
-      return Promise.reject('Failed to fetch');
-    }
-    return await response.json();
-  } catch (e) {
-    return Promise.reject((e as Error).message);
-  }
-};
+export const ApiReducer = api.reducerPath;

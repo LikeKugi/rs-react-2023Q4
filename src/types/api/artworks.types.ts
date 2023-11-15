@@ -4,7 +4,7 @@ import {
   IBaseSuggestedAutocomplete,
 } from '@/types/api/types';
 
-export interface ArtworksTypes {
+export interface IArtwork {
   alt_artist_ids: string[];
   alt_classification_ids: string[];
   alt_image_ids: string[];

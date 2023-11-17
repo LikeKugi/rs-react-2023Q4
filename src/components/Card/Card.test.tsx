@@ -23,6 +23,7 @@ describe('<Card /> component tests', () => {
     expect(screen.queryByText(/kurt/i)).toBeInTheDocument();
     expect(screen.queryByText(/1943/i)).toBeInTheDocument();
     expect(screen.queryByRole('img')).toBeInTheDocument();
+    expect(screen.queryByRole('link')).toBeInTheDocument();
   });
 
   it('should render skeleton when image_id is null', function () {

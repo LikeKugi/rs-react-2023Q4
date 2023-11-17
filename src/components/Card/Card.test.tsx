@@ -20,6 +20,9 @@ describe('<Card /> component tests', () => {
       </BrowserRouter>,
     );
     expect(screen.queryByText(/Melusine/i)).toBeInTheDocument();
+    expect(screen.queryByText(/kurt/i)).toBeInTheDocument();
+    expect(screen.queryByText(/1943/i)).toBeInTheDocument();
+    expect(screen.queryByRole('img')).toBeInTheDocument();
   });
 
   it('should render skeleton when image_id is null', function () {

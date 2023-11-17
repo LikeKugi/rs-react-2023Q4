@@ -1,45 +1,25 @@
 import { describe, expect } from 'vitest';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 import { renderWithProviders } from '@/__tests__/utils';
 
 describe('<NotFoundPage /> tests', () => {
   it('should render component', function () {
-    renderWithProviders(
+    render(
       <BrowserRouter>
         <NotFoundPage />
       </BrowserRouter>,
-      {
-        preloadedState: {
-          navigation: {
-            query: '',
-            page: 10,
-            limit: 8,
-            totalPages: 15,
-          },
-        },
-      },
     );
 
     expect(true).toBeTruthy();
   });
 
   it('should not be empty', function () {
-    renderWithProviders(
+    render(
       <BrowserRouter>
         <NotFoundPage />
       </BrowserRouter>,
-      {
-        preloadedState: {
-          navigation: {
-            query: '',
-            page: 10,
-            limit: 8,
-            totalPages: 15,
-          },
-        },
-      },
     );
 
     const headerElement = screen.queryByText('The information not found');
@@ -47,20 +27,10 @@ describe('<NotFoundPage /> tests', () => {
   });
 
   it('should contain link', function () {
-    renderWithProviders(
+    render(
       <BrowserRouter>
         <NotFoundPage />
       </BrowserRouter>,
-      {
-        preloadedState: {
-          navigation: {
-            query: '',
-            page: 10,
-            limit: 8,
-            totalPages: 15,
-          },
-        },
-      },
     );
 
     const linkElement = screen.getByRole('link');

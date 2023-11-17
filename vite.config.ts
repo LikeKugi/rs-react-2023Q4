@@ -32,7 +32,7 @@ export default defineConfig({
       reporter: ['text', 'html'],
       reportsDirectory: './tests/unit/coverage',
       include: ['src/**'],
-      exclude: [...coverageConfigDefaults.exclude, 'src/main.tsx', 'src/**/*.d.ts', 'src/**/*.types.ts', 'src/types/*', 'src/services/*', 'src/provider/*', 'src/api/*'],
+      exclude: [...coverageConfigDefaults.exclude, 'src/main.tsx', 'src/**/*.d.ts', 'src/**/*.api.types.ts', 'src/types/*', 'src/services/*', 'src/provider/*', 'src/api/*'],
     },
     css: false,
   },

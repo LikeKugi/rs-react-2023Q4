@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IArtwork } from '@/types/api/artworks.types';
+import { IArtwork } from '@/types';
 import styles from './Card.module.scss';
 import { Link } from 'react-router-dom';
 import { RouterConstants } from '@/routes/RouterConstants';

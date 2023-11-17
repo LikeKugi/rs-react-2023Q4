@@ -1,5 +1,5 @@
 import { JSX, useEffect, useState } from 'react';
-import { IArtwork } from '@/types/api/artworks.types';
+import { IArtwork } from '@/types';
 import styles from './ArtworkDetails.module.scss';
 import parse from 'html-react-parser';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';

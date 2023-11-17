@@ -2,7 +2,7 @@ import {
   IBaseColor,
   IBaseDimension,
   IBaseSuggestedAutocomplete,
-} from '@/types/api/types';
+} from '@/types/api/api.types';
 
 export interface IArtwork {
   alt_artist_ids: string[];

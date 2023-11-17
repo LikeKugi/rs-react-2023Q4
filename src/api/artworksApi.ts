@@ -3,7 +3,7 @@ import {
   IBaseDetailsArtworkRequest,
   IBaseDetailsArtworkResponse,
   IBaseTypeResponse,
-} from '@/types/api/types';
+} from '@/types';
 import { ApiConstants } from '@/api/api.constants';
 
 export const artworksApi = api.injectEndpoints({

@@ -1,4 +1,4 @@
-import { IQueryObject } from '@/types/app.types';
+import { IQueryObject } from '@/types';
 import { GetDataFromStorageType } from '@/services/localStorageServices.types';
 
 const STORAGE_KEY = 'artworks_key';

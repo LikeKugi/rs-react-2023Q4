@@ -1,6 +1,6 @@
 import { JSX, useEffect } from 'react';
 import styles from './HomePage.module.scss';
-import { IFetchQueryParams } from '@/types/api/types';
+import { IFetchQueryParams } from '@/types';
 import Form from '@/components/Form/Form';
 import Loader from '@/components/Loader/Loader';
 import CardList from '@/components/CardList/CardList';

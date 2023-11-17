@@ -1,5 +1,5 @@
 import { FC, JSX, PropsWithChildren, useState } from 'react';
-import { IArtwork } from '@/types/api/artworks.types';
+import { IArtwork } from '@/types';
 import { ArtworksProviderContext } from '@/provider/ArtworksProvider/ArtworksProvider.context';
 
 const ArtworksProvider: FC<PropsWithChildren> = ({ children }): JSX.Element => {

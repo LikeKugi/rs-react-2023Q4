@@ -1,4 +1,4 @@
-import { IArtwork } from '@/types/api/artworks.types';
+import { IArtwork } from '@/types';
 import { createContext } from 'react';
 
 interface IArtworksProviderContext {

@@ -2,11 +2,11 @@ import { describe, vi, beforeEach, it, expect, afterEach } from 'vitest';
 import createFetchMock from 'vitest-fetch-mock';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
-import Card from '../src/components/Card/Card';
+import Card from '@/components/Card/Card';
 import { singleResponse } from './CardDetails.test-mocks';
-import { RouterConstants } from '../src/routes/RouterConstants';
-import ModalPage from '../src/pages/ModalPage/ModalPage';
-import ArtworkDetails from '../src/components/ArtworkDetails/ArtworkDetails';
+import { RouterConstants } from '@/routes/RouterConstants';
+import ModalPage from '@/pages/ModalPage/ModalPage';
+import ArtworkDetails from '@/components/ArtworkDetails/ArtworkDetails';
 import '@testing-library/jest-dom';
 
 const SimpleLayout = () => {

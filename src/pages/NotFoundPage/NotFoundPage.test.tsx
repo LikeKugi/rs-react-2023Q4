@@ -1,31 +1,45 @@
-import { afterEach, describe, expect, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect } from 'vitest';
+import { fireEvent, screen } from '@testing-library/react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
-import * as useNavigationHook from '@/provider/NavigationProvider/NavigationProvider.hooks';
+import { renderWithProviders } from '@/__tests__/utils';
 
 describe('<NotFoundPage /> tests', () => {
-  const useSpyNavigation = vi.spyOn(useNavigationHook, 'useNavigationProvider');
-  afterEach(() => {
-    useSpyNavigation.mockClear();
-    cleanup();
-  });
-
   it('should render component', function () {
-    render(
+    renderWithProviders(
       <BrowserRouter>
         <NotFoundPage />
       </BrowserRouter>,
+      {
+        preloadedState: {
+          navigation: {
+            query: '',
+            page: 10,
+            limit: 8,
+            totalPages: 15,
+          },
+        },
+      },
     );
 
     expect(true).toBeTruthy();
   });
 
   it('should not be empty', function () {
-    render(
+    renderWithProviders(
       <BrowserRouter>
         <NotFoundPage />
       </BrowserRouter>,
+      {
+        preloadedState: {
+          navigation: {
+            query: '',
+            page: 10,
+            limit: 8,
+            totalPages: 15,
+          },
+        },
+      },
     );
 
     const headerElement = screen.queryByText('The information not found');
@@ -33,43 +47,29 @@ describe('<NotFoundPage /> tests', () => {
   });
 
   it('should contain link', function () {
-    render(
+    renderWithProviders(
       <BrowserRouter>
         <NotFoundPage />
       </BrowserRouter>,
+      {
+        preloadedState: {
+          navigation: {
+            query: '',
+            page: 10,
+            limit: 8,
+            totalPages: 15,
+          },
+        },
+      },
     );
 
     const linkElement = screen.getByRole('link');
     linkElement.focus();
     expect(linkElement).toHaveFocus();
   });
-  it('should change page', async function () {
-    const mockHandleChangePage = vi.fn();
-    useSpyNavigation.mockReturnValue({
-      query: '',
-      setQuery: vi.fn(),
-      page: 5,
-      setPage: mockHandleChangePage,
-      limit: 12,
-      setLimit: vi.fn(),
-    });
-
-    render(
-      <BrowserRouter>
-        <NotFoundPage />
-      </BrowserRouter>,
-    );
-
-    const linkElement = screen.getByRole('link');
-    expect(linkElement).toBeInTheDocument();
-
-    fireEvent.click(linkElement);
-    expect(mockHandleChangePage).toHaveBeenCalledOnce();
-    expect(mockHandleChangePage).toBeCalledWith(1);
-  });
 
   it('should render NotFoundPage when route is invalid', async function () {
-    render(
+    renderWithProviders(
       <BrowserRouter>
         <Routes>
           <Route

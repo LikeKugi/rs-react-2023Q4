@@ -35,13 +35,7 @@ const Footer = (): JSX.Element => {
                   href={link.href}
                   target={'_blank'}
                 >
-                  <Image
-                    className={styles.footer__img}
-                    width={30}
-                    height={30}
-                    src={link.src}
-                    alt={link.alt}
-                  />
+                  <Image height={30} width={30} src={link.src} alt={link.alt} />
                 </Link>
               </li>
             ))}

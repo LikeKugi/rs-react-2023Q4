@@ -2,10 +2,10 @@ import { FC, JSX } from 'react';
 import Head from 'next/head';
 
 interface IMetaProps {
-  title: string
+  title: string;
 }
 
-const Meta: FC<IMetaProps> = ({title}): JSX.Element => {
+const Meta: FC<IMetaProps> = ({ title }): JSX.Element => {
   return (
     <>
       <Head>

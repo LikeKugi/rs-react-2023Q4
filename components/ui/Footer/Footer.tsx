@@ -1,6 +1,7 @@
 import { JSX } from 'react';
 import Link from 'next/link';
 import styles from './Footer.module.scss';
+import Image from 'next/image';
 
 interface ILink {
   href: string;
@@ -34,8 +35,10 @@ const Footer = (): JSX.Element => {
                   href={link.href}
                   target={'_blank'}
                 >
-                  <img
+                  <Image
                     className={styles.footer__img}
+                    width={30}
+                    height={30}
                     src={link.src}
                     alt={link.alt}
                   />

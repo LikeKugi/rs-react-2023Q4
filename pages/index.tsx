@@ -7,6 +7,7 @@ import {
 } from '@/store/api';
 import { wrapper } from '@/store/store';
 import { useRouter } from 'next/router';
+import Loader from '@/components/ui/Loader/Loader';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -63,7 +64,7 @@ export default function Home() {
   const { data, isLoading } = useGetArtworksQuery(requestObject);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (

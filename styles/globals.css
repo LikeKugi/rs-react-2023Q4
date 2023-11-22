@@ -1,0 +1,96 @@
+:root {
+  --colors-modal-bg: RGBA(0, 0, 0, 0.2);
+  --colors-text: hsl(0, 0%, 100%);
+  --colors-bg: hsl(207, 26%, 17%);
+  --colors-ui-base: hsl(209, 23%, 22%);
+  --colors-contrast: hsl(29, 100%, 22%);
+  --color-link-base: #646cff;
+  --color-link-hover: #535bf2;
+
+  --shadow: rgba(245, 245, 245, 0.2) 0 0 8px;
+
+  --fs-sm: 14px;
+  --fs-md: 16px;
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-bold: 800;
+
+  --radii: 0.5rem;
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: var(--fw-normal);
+
+  color-scheme: light dark;
+  color: var(--colors-text);
+  background-color: var(--colors-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+a {
+  font-weight: var(--fw-medium);
+  color: var(--color-link-base);
+  text-decoration: inherit;
+  transition: color 0.3s ease-in-out;
+}
+a:hover {
+  color: var(--color-link-hover);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: var(--radii);
+  border: 2px solid transparent;
+  padding-block: 0.6rem;
+  padding-inline: 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--colors-contrast);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: var(--color-link-hover);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --colors-text: hsl(200, 15%, 8%);
+    --colors-bg: hsl(0, 0%, 96%);
+    --colors-ui-base: hsl(0, 0%, 100%);
+    --colors-contrast: hsl(0, 100%, 60%);
+    --color-link-hover: #747bff;
+
+    --shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+  a:hover {
+    color: #747bff;
+  }
+}

@@ -11,7 +11,11 @@ export function App({ Component, pageProps }: AppProps) {
   const isLoading = useAppSelector(selectIsLoading);
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <Layout>
+        <Loader />
+      </Layout>
+    );
   }
 
   return (

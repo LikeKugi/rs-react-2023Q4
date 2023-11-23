@@ -6,6 +6,7 @@ import Meta from '@/components/Meta/Meta';
 import Form from '@/components/ui/Form/Form';
 import CardList from '@/components/ui/CardList/CardList';
 import Pagination from '@/components/ui/Pagination/Pagination';
+import LimitSelection from '@/components/ui/LimitSelection/LimitSelection';
 
 const HomePage = (): JSX.Element => {
   const router = useRouter();
@@ -38,6 +39,7 @@ const HomePage = (): JSX.Element => {
         <>
           <CardList cards={data.data} />
           <Pagination totalPages={data.pagination.total_pages} />
+          <LimitSelection />
         </>
       )}
     </>

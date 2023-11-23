@@ -1,15 +1,8 @@
-import Meta from '@/components/Meta/Meta';
 import { IBaseGetArtworksRequest, IFetchQueryParams } from '@/types';
-import {
-  getArtworks,
-  getRunningQueriesThunk,
-  useGetArtworksQuery,
-} from '@/store/api';
+import { getArtworks, getRunningQueriesThunk } from '@/store/api';
 import { wrapper } from '@/store/store';
-import { useRouter } from 'next/router';
-import Form from '@/components/ui/Form/Form';
-import Pagination from '@/components/ui/Pagination/Pagination';
-import CardList from '@/components/ui/CardList/CardList';
+import dynamic from 'next/dynamic';
+import Loader from '@/components/ui/Loader/Loader';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -44,41 +37,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
   },
 );
 
+const HomePage = dynamic(
+  () => import('@/components/layouts/HomePage/HomePage'),
+  { loading: () => <Loader /> },
+);
 const Home = () => {
-  const router = useRouter();
-
-  const initialParams: IFetchQueryParams = {
-    limit: router.query.limit?.toString() || '8',
-    page: router.query.page?.toString() || '1',
-    fields: 'id,title,image_id,artist_title,date_start,date_end,color',
-  };
-
-  const params = new URLSearchParams(initialParams);
-
-  const requestObject: IBaseGetArtworksRequest = {
-    params: params.toString(),
-  };
-
-  if ('q' in router.query && typeof router.query.q === 'string') {
-    requestObject['q'] = `q=${router.query.q.toString()}`;
-  }
-
-  const { data } = useGetArtworksQuery(requestObject);
-
-  return (
-    <>
-      <Meta title="Artistic by Art Institute of Chicago API" />
-      <main>
-        <Form />
-      </main>
-      {data && (
-        <>
-          <CardList cards={data.data} />
-          <Pagination totalPages={data.pagination.total_pages} />
-        </>
-      )}
-    </>
-  );
+  return <HomePage />;
 };
 
 export default Home;

@@ -2,7 +2,6 @@ import { FC, JSX } from 'react';
 import { IArtwork } from '@/types';
 import styles from './Card.module.scss';
 import Link from 'next/link';
-import { RouterConstants } from '@/routes';
 import ImgSkeleton from '@/components/ImgSkeleton/ImgSkeleton';
 import Image from 'next/image';
 
@@ -17,18 +16,16 @@ interface ICardProps {
     | 'date_start'
     | 'date_end'
   >;
+  link: string;
 }
 
-const Card: FC<ICardProps> = ({ content }): JSX.Element => {
+const Card: FC<ICardProps> = ({ content, link }): JSX.Element => {
   const { h, s, l, percentage } = content.color
     ? content.color
     : { h: 0, s: 0, l: 40, percentage: 0.5 };
   return (
     <div className={styles.card}>
-      <Link
-        className={styles.card__link}
-        href={`${RouterConstants.ARTWORKS}${content.id}`}
-      >
+      <Link className={styles.card__link} href={link}>
         {content.image_id ? (
           <Image
             className={styles.card__img}

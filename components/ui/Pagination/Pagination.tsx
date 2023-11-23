@@ -1,6 +1,8 @@
 import { FC, JSX } from 'react';
 import styles from './Pagination.module.scss';
 import { useRouter } from 'next/router';
+import { useAppDispatch } from '@/store/hooks';
+import { endLoading, startLoading } from '@/store/networkSlice/networkSlice';
 
 interface IPaginationProps {
   totalPages: number;
@@ -8,17 +10,20 @@ interface IPaginationProps {
 
 const Pagination: FC<IPaginationProps> = ({ totalPages }): JSX.Element => {
   const router = useRouter();
-
+  const dispatch = useAppDispatch();
   const currentPage = router.query.page;
 
   const handleNavigation = (page: number) => {
-    router.push({
-      pathname: router.pathname,
-      query: {
-        ...router.query,
-        page: page,
-      },
-    });
+    dispatch(startLoading());
+    router
+      .push({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          page: page,
+        },
+      })
+      .then(() => dispatch(endLoading()));
   };
 
   return (

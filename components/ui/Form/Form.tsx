@@ -1,37 +1,46 @@
 import { FormEvent, JSX, useId } from 'react';
 import styles from './Form.module.scss';
 import { useRouter } from 'next/router';
+import { useAppDispatch } from '@/store/hooks';
+import { endLoading, startLoading } from '@/store/networkSlice/networkSlice';
 
 const Form = (): JSX.Element => {
   const queryInput = useId();
+  const dispatch = useAppDispatch();
 
   const router = useRouter();
 
-  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(startLoading());
     const formData = new FormData(e.currentTarget);
-    await router.push({
-      pathname: router.pathname,
-      query: {
-        ...router.query,
-        page: '1',
-        q: formData.get('q') as string,
-      },
-    });
+    router
+      .push({
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          page: '1',
+          q: formData.get('q') as string,
+        },
+      })
+      .then(() => dispatch(endLoading()));
   };
 
-  const resetFormHandler = async (e: FormEvent<HTMLFormElement>) => {
+  const resetFormHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(startLoading());
     const newQuery = router.query;
     delete newQuery.q;
     e.currentTarget['q'].value = '';
-    await router.push({
-      pathname: router.pathname,
-      query: {
-        ...newQuery,
-        page: '1',
-      },
-    });
+    router
+      .push({
+        pathname: router.pathname,
+        query: {
+          ...newQuery,
+          page: '1',
+        },
+      })
+      .then(() => dispatch(endLoading()));
   };
 
   return (

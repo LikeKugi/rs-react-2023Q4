@@ -1,8 +1,9 @@
 import { IBaseGetArtworksRequest, IFetchQueryParams } from '@/types';
-import { getArtworks, getRunningQueriesThunk } from '@/store/api';
+import { getArtwork, getArtworks, getRunningQueriesThunk } from '@/store/api';
 import { wrapper } from '@/store/store';
 import dynamic from 'next/dynamic';
 import Loader from '@/components/ui/Loader/Loader';
+import Meta from '@/components/Meta/Meta';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -22,12 +23,21 @@ export const getServerSideProps = wrapper.getServerSideProps(
       requestObject['q'] = context.query.q;
     }
 
+    if (
+      'details' in context.query &&
+      typeof context.query.details === 'string'
+    ) {
+      store.dispatch(getArtwork.initiate(context.query.details));
+    }
+
     store.dispatch(getArtworks.initiate(requestObject));
 
     try {
       await Promise.all(store.dispatch(getRunningQueriesThunk()));
       return {
-        props: {},
+        props: {
+          details: 'details' in context.query,
+        },
       };
     } catch (e) {
       return {
@@ -41,8 +51,28 @@ const HomePage = dynamic(
   () => import('@/components/layouts/HomePage/HomePage'),
   { loading: () => <Loader />, ssr: true },
 );
-const Home = () => {
-  return <HomePage />;
+
+const Home = ({ details }: { details: boolean }) => {
+  if (!details) {
+    return (
+      <>
+        <Meta title="Artistic by Art Institute of Chicago API" />
+        <HomePage />
+      </>
+    );
+  }
+
+  const DetailsPage = dynamic(
+    () => import('@/components/layouts/DetailsPage/DetailsPage'),
+    { loading: () => <Loader />, ssr: true },
+  );
+
+  return (
+    <div style={{ display: 'flex' }}>
+      <HomePage />
+      <DetailsPage />
+    </div>
+  );
 };
 
 export default Home;

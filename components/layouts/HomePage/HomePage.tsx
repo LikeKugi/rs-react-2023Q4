@@ -2,7 +2,6 @@ import { JSX } from 'react';
 import { useRouter } from 'next/router';
 import { IBaseGetArtworksRequest, IFetchQueryParams } from '@/types';
 import { useGetArtworksQuery } from '@/store/api';
-import Meta from '@/components/Meta/Meta';
 import Form from '@/components/ui/Form/Form';
 import CardList from '@/components/ui/CardList/CardList';
 import Pagination from '@/components/ui/Pagination/Pagination';
@@ -31,7 +30,6 @@ const HomePage = (): JSX.Element => {
 
   return (
     <>
-      <Meta title="Artistic by Art Institute of Chicago API" />
       <main>
         <Form />
         {data && (

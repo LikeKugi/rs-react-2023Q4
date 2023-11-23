@@ -1,0 +1,26 @@
+.modal {
+  position: fixed;
+  inset-inline: 0;
+  inset-block: 0;
+  padding-block: 5rem;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  background-color: var(--colors-modal-bg);
+  overflow-y: auto;
+
+  &__btn {
+    display: block;
+    margin-inline-start: auto;
+  }
+}
+.content {
+  min-width: 320px;
+  max-width: 1000px;
+  height: fit-content;
+  padding: 2rem;
+  border: 5px;
+  border-radius: var(--radii);
+  background-color: var(--colors-ui-base);
+  box-shadow: var(--shadow);
+}

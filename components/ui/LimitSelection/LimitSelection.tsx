@@ -1,27 +1,21 @@
 import { JSX, useId } from 'react';
 import styles from './LimitSelection.module.scss';
 import { useRouter } from 'next/router';
-import { useAppDispatch } from '@/store/hooks';
-import { endLoading, startLoading } from '@/store/networkSlice/networkSlice';
 
 const LimitSelection = (): JSX.Element => {
   const selectId = useId();
   const router = useRouter();
-  const dispatch = useAppDispatch();
 
   const limit = router.query.limit || '8';
 
   const handleLimitChange = (value: number) => {
-    dispatch(startLoading());
-    router
-      .push({
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          limit: value.toString(),
-        },
-      })
-      .then(() => dispatch(endLoading()));
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        limit: value.toString(),
+      },
+    });
   };
 
   return (

@@ -11,13 +11,9 @@ export const artworksApi = api.injectEndpoints({
   endpoints: (build) => ({
     getArtworks: build.query<IBaseTypeResponse, IBaseGetArtworksRequest>({
       query(params) {
-        console.log(params);
-
         const queryPath = params.q
           ? `${ApiConstants.ARTWORKS}/${ApiConstants.SEARCH}?${params.q}&${params.params}`
           : `${ApiConstants.ARTWORKS}?${params.params}`;
-
-        console.log(queryPath);
 
         return {
           url: queryPath,
@@ -42,7 +38,6 @@ export const artworksApi = api.injectEndpoints({
 export const {
   useGetArtworkQuery,
   useGetArtworksQuery,
-  useLazyGetArtworksQuery,
   util: { getRunningQueriesThunk },
 } = artworksApi;
 

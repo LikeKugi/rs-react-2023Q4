@@ -7,9 +7,9 @@ import {
 } from '@/store/api';
 import { wrapper } from '@/store/store';
 import { useRouter } from 'next/router';
-import Loader from '@/components/ui/Loader/Loader';
 import Form from '@/components/ui/Form/Form';
 import Pagination from '@/components/ui/Pagination/Pagination';
+import CardList from '@/components/ui/CardList/CardList';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -63,11 +63,7 @@ const Home = () => {
     requestObject['q'] = `q=${router.query.q.toString()}`;
   }
 
-  const { data, isLoading } = useGetArtworksQuery(requestObject);
-
-  if (isLoading) {
-    return <Loader />;
-  }
+  const { data } = useGetArtworksQuery(requestObject);
 
   return (
     <>
@@ -75,10 +71,9 @@ const Home = () => {
       <main>
         <Form />
       </main>
-      {/* <p>{q}</p> */}
       {data && (
         <>
-          <div>{JSON.stringify(data)}</div>
+          <CardList cards={data.data} />
           <Pagination totalPages={data.pagination.total_pages} />
         </>
       )}

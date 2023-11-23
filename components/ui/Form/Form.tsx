@@ -7,32 +7,31 @@ const Form = (): JSX.Element => {
 
   const router = useRouter();
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    console.log(formData.get('q'));
-    console.log(router.pathname);
-    console.log(router.query);
-    router.push({
+    await router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
+        page: '1',
         q: formData.get('q') as string,
       },
     });
   };
 
-  const resetFormHandler = (e: FormEvent<HTMLFormElement>) => {
+  const resetFormHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newQuery = router.query;
     delete newQuery.q;
-    router.push({
+    e.currentTarget['q'].value = '';
+    await router.push({
       pathname: router.pathname,
       query: {
         ...newQuery,
+        page: '1',
       },
     });
-    e.currentTarget['q'].value = '';
   };
 
   return (

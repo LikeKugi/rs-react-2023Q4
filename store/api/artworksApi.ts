@@ -36,14 +36,6 @@ export const artworksApi = api.injectEndpoints({
         };
       },
     }),
-    searchArtwork: build.query<IBaseTypeResponse, string>({
-      query(params) {
-        return {
-          url: `${ApiConstants.ARTWORKS}/${ApiConstants.SEARCH}?${params}`,
-          method: 'GET',
-        };
-      },
-    }),
   }),
 });
 
@@ -51,8 +43,7 @@ export const {
   useGetArtworkQuery,
   useGetArtworksQuery,
   useLazyGetArtworksQuery,
-  useLazySearchArtworkQuery,
   util: { getRunningQueriesThunk },
 } = artworksApi;
 
-export const { getArtworks, searchArtwork, getArtwork } = artworksApi.endpoints;
+export const { getArtworks, getArtwork } = artworksApi.endpoints;

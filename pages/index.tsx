@@ -8,6 +8,8 @@ import {
 import { wrapper } from '@/store/store';
 import { useRouter } from 'next/router';
 import Loader from '@/components/ui/Loader/Loader';
+import Form from '@/components/ui/Form/Form';
+import Pagination from '@/components/ui/Pagination/Pagination';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -42,7 +44,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   },
 );
 
-export default function Home() {
+const Home = () => {
   const router = useRouter();
 
   const initialParams: IFetchQueryParams = {
@@ -70,9 +72,18 @@ export default function Home() {
   return (
     <>
       <Meta title="Artistic by Art Institute of Chicago API" />
-      <main>main page</main>
+      <main>
+        <Form />
+      </main>
       {/* <p>{q}</p> */}
-      <div>{JSON.stringify(data)}</div>
+      {data && (
+        <>
+          <div>{JSON.stringify(data)}</div>
+          <Pagination totalPages={data.pagination.total_pages} />
+        </>
+      )}
     </>
   );
-}
+};
+
+export default Home;

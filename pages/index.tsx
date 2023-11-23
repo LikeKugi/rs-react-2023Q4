@@ -39,7 +39,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 const HomePage = dynamic(
   () => import('@/components/layouts/HomePage/HomePage'),
-  { loading: () => <Loader /> },
+  { loading: () => <Loader />, ssr: true },
 );
 const Home = () => {
   return <HomePage />;

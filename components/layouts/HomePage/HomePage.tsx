@@ -34,14 +34,14 @@ const HomePage = (): JSX.Element => {
       <Meta title="Artistic by Art Institute of Chicago API" />
       <main>
         <Form />
+        {data && (
+          <>
+            <CardList cards={data.data} />
+            <Pagination totalPages={data.pagination.total_pages} />
+            <LimitSelection />
+          </>
+        )}
       </main>
-      {data && (
-        <>
-          <CardList cards={data.data} />
-          <Pagination totalPages={data.pagination.total_pages} />
-          <LimitSelection />
-        </>
-      )}
     </>
   );
 };

@@ -8,8 +8,8 @@ const LimitSelection = (): JSX.Element => {
 
   const limit = router.query.limit || '8';
 
-  const handleLimitChange = (value: number) => {
-    router.push({
+  const handleLimitChange = async (value: number) => {
+    await router.push({
       pathname: router.pathname,
       query: {
         ...router.query,

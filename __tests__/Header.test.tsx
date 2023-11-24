@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, it } from '@jest/globals';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-
 import mockRouter from 'next-router-mock';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import Header from '@/components/ui/Header/Header';

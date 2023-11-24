@@ -10,7 +10,7 @@
     "format:fix": "npx prettier . --write",
     "prepare": "husky install",
     "test": "jest",
-    "test:covrage": "jet -- --coverage"
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",

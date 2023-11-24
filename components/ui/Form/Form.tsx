@@ -7,10 +7,10 @@ const Form = (): JSX.Element => {
 
   const router = useRouter();
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    router.push({
+    await router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
@@ -20,12 +20,14 @@ const Form = (): JSX.Element => {
     });
   };
 
-  const resetFormHandler = (e: FormEvent<HTMLFormElement>) => {
+  const resetFormHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newQuery = router.query;
     delete newQuery.q;
-    e.currentTarget['q'].value = '';
-    router.push({
+    if (e.currentTarget['q'] instanceof HTMLInputElement) {
+      e.currentTarget['q'].value = '';
+    }
+    await router.push({
       pathname: router.pathname,
       query: {
         ...newQuery,

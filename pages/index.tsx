@@ -4,6 +4,7 @@ import { wrapper } from '@/store/store';
 import dynamic from 'next/dynamic';
 import Loader from '@/components/ui/Loader/Loader';
 import Meta from '@/components/Meta/Meta';
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -55,10 +56,10 @@ const HomePage = dynamic(
 const Home = ({ details }: { details: boolean }) => {
   if (!details) {
     return (
-      <>
+      <ErrorBoundary>
         <Meta title="Artistic by Art Institute of Chicago API" />
         <HomePage />
-      </>
+      </ErrorBoundary>
     );
   }
 
@@ -68,10 +69,12 @@ const Home = ({ details }: { details: boolean }) => {
   );
 
   return (
-    <div style={{ display: 'flex' }}>
-      <HomePage />
-      <DetailsPage />
-    </div>
+    <ErrorBoundary>
+      <div style={{ display: 'flex' }}>
+        <HomePage />
+        <DetailsPage />
+      </div>
+    </ErrorBoundary>
   );
 };
 

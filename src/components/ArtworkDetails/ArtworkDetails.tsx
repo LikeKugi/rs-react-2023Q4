@@ -1,39 +1,31 @@
-import { JSX, useEffect, useState } from 'react';
-import { ArtworksTypes } from '@/types/api/artworks.types';
+import { JSX, useEffect } from 'react';
 import styles from './ArtworkDetails.module.scss';
 import parse from 'html-react-parser';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
-import { useParams } from 'react-router-dom';
-import { ApiConstants } from '@/api/api.constants';
-import { fetchData } from '@/api/api';
-import { IBaseDetailsArtworkResponse } from '@/types/api/types';
+import { Navigate, useParams } from 'react-router-dom';
 import Loader from '@/components/Loader/Loader';
+import { useLazyGetArtworkQuery } from '@/api/artworksApi';
+import { RouterConstants } from '@/routes/RouterConstants';
 
 const ArtworkDetails = (): JSX.Element => {
-  const [loading, setLoading] = useState(false);
-  const [artwork, setArtwork] = useState<ArtworksTypes | null>(null);
-
   const { artworkId } = useParams();
+  const [getArtwork, { data, isLoading }] = useLazyGetArtworkQuery();
 
   useEffect(() => {
-    const fetchArtworkById = (query: string) => {
-      setLoading(true);
-      const basePath = `${ApiConstants.BASE}${ApiConstants.ARTWORKS}/${query}`;
-      (fetchData(basePath) as Promise<IBaseDetailsArtworkResponse>)
-        .then((a) => {
-          setArtwork(a.data);
-        })
-        .catch((e) => console.log(e))
-        .finally(() => {
-          setLoading(false);
-        });
-    };
-    fetchArtworkById(artworkId as string);
-  }, [artworkId]);
+    if (!artworkId) return;
+    getArtwork(artworkId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (loading || !artwork) {
+  if (!artworkId) {
+    return <Navigate to={RouterConstants.INDEX} />;
+  }
+
+  if (isLoading || !data) {
     return <Loader />;
   }
+
+  const artwork = data.data;
 
   return (
     <ErrorBoundary>

@@ -1,13 +1,14 @@
 import { describe, vi, beforeEach, it, expect, afterEach } from 'vitest';
 import createFetchMock from 'vitest-fetch-mock';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, screen } from '@testing-library/react';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
-import Card from '../src/components/Card/Card';
+import Card from '@/components/Card/Card';
 import { singleResponse } from './CardDetails.test-mocks';
-import { RouterConstants } from '../src/routes/RouterConstants';
-import ModalPage from '../src/pages/ModalPage/ModalPage';
-import ArtworkDetails from '../src/components/ArtworkDetails/ArtworkDetails';
+import { RouterConstants } from '@/routes/RouterConstants';
+import ModalPage from '@/pages/ModalPage/ModalPage';
+import ArtworkDetails from '@/components/ArtworkDetails/ArtworkDetails';
 import '@testing-library/jest-dom';
+import { renderWithProviders } from '@/__tests__/utils';
 
 const SimpleLayout = () => {
   return (
@@ -32,7 +33,7 @@ describe('Card and Details tests', () => {
   });
 
   it('should render layout', function () {
-    render(
+    renderWithProviders(
       <BrowserRouter>
         <Routes>
           <Route path={RouterConstants.INDEX} element={<SimpleLayout />}>
@@ -57,7 +58,7 @@ describe('Card and Details tests', () => {
           setTimeout(() => resolve(JSON.stringify(singleResponse)), 100),
         ),
     );
-    render(
+    renderWithProviders(
       <BrowserRouter>
         <Routes>
           <Route path={RouterConstants.INDEX} element={<SimpleLayout />}>

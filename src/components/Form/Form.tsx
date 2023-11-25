@@ -1,36 +1,28 @@
-import { FormEvent, useCallback, useEffect, useId, useState } from 'react';
+import { FormEvent, useCallback, useId, useState } from 'react';
 import styles from './Form.module.scss';
-import { useNavigationProvider } from '@/provider/NavigationProvider/NavigationProvider.hooks';
+import { setDataToLocalStorage } from '@/services/localStorageServices';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
-  getDataFromStorage,
-  setDataToLocalStorage,
-} from '@/services/localStorageServices';
-import { IQueryObject } from '@/types/app.types';
+  selectNavigationQuery,
+  setPage,
+  setQuery,
+} from '@/store/navigationSlice/navigationSlice';
 
 const Form = () => {
-  const { query, setQuery, setPage } = useNavigationProvider();
+  const dispatch = useAppDispatch();
+  const query = useAppSelector(selectNavigationQuery);
 
   const [inputValue, setInputValue] = useState(query);
 
   const queryInput = useId();
 
-  useEffect(() => {
-    const fallback: IQueryObject = {
-      query: '',
-    };
-    const queryObject = getDataFromStorage(fallback) as IQueryObject;
-    setQuery(queryObject.query);
-    setInputValue(queryObject.query);
-    setPage(1);
-  }, [setPage, setQuery]);
-
   const submitAction = useCallback(
     (query: string) => {
-      setQuery(query);
-      setPage(1);
+      dispatch(setQuery(query));
+      dispatch(setPage(1));
       setDataToLocalStorage({ query });
     },
-    [setPage, setQuery],
+    [dispatch],
   );
 
   const submitHandler = (e: FormEvent) => {
@@ -41,7 +33,7 @@ const Form = () => {
   const resetFormHandler = (e: FormEvent) => {
     e.preventDefault();
     if (query === '') return;
-    setQuery('');
+    dispatch(setQuery(''));
     setInputValue('');
     submitAction('');
   };

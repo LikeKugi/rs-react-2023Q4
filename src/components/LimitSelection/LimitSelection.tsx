@@ -1,23 +1,23 @@
-import { FC, JSX, useId } from 'react';
+import { JSX, useId } from 'react';
 import styles from './LimitSelection.module.scss';
-
-interface ILimitSelectionProps {
-  limit: number;
-  setLimit: (arg: number) => void;
-}
-
-const LimitSelection: FC<ILimitSelectionProps> = ({
-  limit,
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import {
+  selectNavigationLimit,
   setLimit,
-}): JSX.Element => {
+} from '@/store/navigationSlice/navigationSlice';
+
+const LimitSelection = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const limit = useAppSelector(selectNavigationLimit);
   const selectId = useId();
+
   return (
     <div className={styles.limit}>
       <label htmlFor={selectId}>Artworks on the page:</label>
       <select
         className={styles.limit__select}
         id={selectId}
-        onChange={(e) => setLimit(+e.target.value)}
+        onChange={(e) => dispatch(setLimit(+e.target.value))}
         value={limit}
       >
         {Array.from({ length: 5 }, (_, i) => (

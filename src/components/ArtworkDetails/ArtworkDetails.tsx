@@ -1,25 +1,31 @@
-import { JSX, useEffect, useState } from 'react';
-import { IArtwork } from '@/types';
+import { JSX, useEffect } from 'react';
 import styles from './ArtworkDetails.module.scss';
 import parse from 'html-react-parser';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Loader from '@/components/Loader/Loader';
-import { useGetArtworkQuery } from '@/api/artworksApi';
+import { useLazyGetArtworkQuery } from '@/api/artworksApi';
+import { RouterConstants } from '@/routes/RouterConstants';
 
 const ArtworkDetails = (): JSX.Element => {
-  const [artwork, setArtwork] = useState<IArtwork | null>(null);
   const { artworkId } = useParams();
-  const { data, isLoading } = useGetArtworkQuery(artworkId as string);
+  const [getArtwork, { data, isLoading }] = useLazyGetArtworkQuery();
 
   useEffect(() => {
-    if (!data) return;
-    setArtwork(data.data);
-  }, [data]);
+    if (!artworkId) return;
+    getArtwork(artworkId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (isLoading || !data || !artwork) {
+  if (!artworkId) {
+    return <Navigate to={RouterConstants.INDEX} />;
+  }
+
+  if (isLoading || !data) {
     return <Loader />;
   }
+
+  const artwork = data.data;
 
   return (
     <ErrorBoundary>

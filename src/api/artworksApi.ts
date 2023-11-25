@@ -39,7 +39,7 @@ export const artworksApi = api.injectEndpoints({
 });
 
 export const {
-  useGetArtworkQuery,
+  useLazyGetArtworkQuery,
   useLazyGetArtworksQuery,
   useLazySearchArtworkQuery,
 } = artworksApi;

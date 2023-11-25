@@ -18,9 +18,9 @@ describe('<CardList /> component tests', () => {
       {
         preloadedState: {
           artworks: {
-            artworks: Array.from({ length: i }, (_, idx) => ({
+            artworks: Array.from({ length: i }, (_, index) => ({
               ...datalist[0],
-              id: idx,
+              id: index,
             })),
           },
         },

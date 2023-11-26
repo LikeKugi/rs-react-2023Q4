@@ -22,4 +22,9 @@ describe('CardList tests', () => {
     render(<CardList cards={artworks} />, { wrapper: MemoryRouterProvider });
     expect(screen.getAllByRole('link').length).toBe(i);
   });
+
+  it('should render message if no artworks found', function () {
+    render(<CardList cards={[]} />, { wrapper: MemoryRouterProvider });
+    expect(screen.queryByText(/found/i)).toBeInTheDocument();
+  });
 });

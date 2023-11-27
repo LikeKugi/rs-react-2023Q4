@@ -1,0 +1,29 @@
+@import '@/styles/media.scss';
+.form {
+  max-width: max-content;
+  margin-block: 0;
+  margin-inline: auto;
+  padding-block: 0.5rem;
+  padding-inline: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  @include _767 {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__input {
+    display: block;
+    padding-block: 0.6rem;
+    padding-inline: 1.2rem;
+    border: 1px solid transparent;
+    border-radius: var(--radii);
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: var(--colors-ui-base);
+    color: var(--colors-text);
+    transition: border-color 0.25s;
+  }
+}

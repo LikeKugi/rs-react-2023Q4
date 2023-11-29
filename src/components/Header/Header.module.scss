@@ -1,0 +1,38 @@
+.header {
+  padding-block: 0.5rem;
+  padding-inline: 0;
+  &__wrapper {
+    max-width: 1200px;
+    margin-block: 0;
+    margin-inline: auto;
+  }
+  &__nav {
+    max-width: max-content;
+    margin-inline: auto;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__link {
+    display: inline-block;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    border: 2px solid transparent;
+    color: inherit;
+    text-decoration: none;
+    transition: border-block-end-color 0.3s ease-in-out;
+
+    &:hover {
+      color: inherit;
+      border-block-end-color: var(--color-hover);
+    }
+  }
+}

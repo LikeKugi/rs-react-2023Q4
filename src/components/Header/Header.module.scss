@@ -1,0 +1,23 @@
+.header {
+  position: sticky;
+  inset-block-start: 0;
+  inset-inline: 0;
+  background-color: var(--colors-bg);
+  box-shadow: var(--shadow);
+  z-index: 3;
+
+  &__container {
+    max-width: 1200px;
+    margin-block: 0;
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__link {
+    color: inherit;
+    &:hover {
+      color: inherit;
+    }
+  }
+}

@@ -10,7 +10,7 @@
     inset-inline-start: 0.5rem;
     margin-block: 0;
     font-size: 0.8rem;
-    color: crimson;
+    color: var(--color-error);
   }
   &__label {
     padding-inline-start: 0.5rem;
@@ -24,8 +24,7 @@
     border-radius: 0.7rem;
 
     &--error {
-      border-color: crimson;
+      border-color: var(--color-error);
     }
   }
 }
-

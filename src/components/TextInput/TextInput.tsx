@@ -55,9 +55,11 @@ const TextInput: FC<ITextInputProps> = ({
         {...props}
       />
       <div className={styles.textinput__box}>
-        <p className={styles.textinput__error}>
-          {errorMessage || isError ? 'Unknown error' : ''}
-        </p>
+        {isError && (
+          <p className={styles.textinput__error}>
+            {errorMessage || 'Unknown error'}
+          </p>
+        )}
       </div>
     </div>
   );

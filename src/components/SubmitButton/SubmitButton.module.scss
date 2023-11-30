@@ -12,7 +12,9 @@
   color: var(--color-white);
   background-color: var(--color-success);
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out, border-color 0.25s;
+  transition:
+    background-color 0.3s ease-in-out,
+    border-color 0.25s;
 
   &:hover {
     background-color: var(--color-success-hover);
@@ -23,7 +25,8 @@
     background-color: var(--color-active);
   }
 
-  &:focus, &:focus-visible {
+  &:focus,
+  &:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
   }
 }

@@ -1,6 +1,11 @@
 import { JSX } from 'react';
+import Heading from '@/components/Heading/Heading';
 
 const ControlledFormPage = (): JSX.Element => {
-  return <div>Controlled Form</div>;
+  return (
+    <div>
+      <Heading text="Controlled Form" />
+    </div>
+  );
 };
 export default ControlledFormPage;

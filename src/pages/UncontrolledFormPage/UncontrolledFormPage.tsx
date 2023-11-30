@@ -1,9 +1,10 @@
 import UncontrolledForm from '@/components/UncontrolledForm/UncontrolledForm';
+import Heading from '@/components/Heading/Heading';
 
 const UncontrolledFormPage = () => {
   return (
     <div>
-      <h1>Uncontrolled form</h1>
+      <Heading text="Uncontrolled Form" />
       <UncontrolledForm />
     </div>
   );

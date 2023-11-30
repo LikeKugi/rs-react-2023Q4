@@ -2,6 +2,8 @@ import { FormEvent, JSX, useState } from 'react';
 import TextInput from '@/components/TextInput/TextInput';
 import CheckInput from '@/components/CheckInput/CheckInput';
 import GroupInput from '@/components/GroupInput/GroupInput';
+import styles from './UncontrolledForm.module.scss';
+import SubmitButton from '@/components/SubmitButton/SubmitButton';
 
 const UncontrolledForm = (): JSX.Element => {
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -11,7 +13,7 @@ const UncontrolledForm = (): JSX.Element => {
   const [isError, setError] = useState(false);
 
   return (
-    <form onSubmit={submitHandler}>
+    <form className={styles.uncontrolled} onSubmit={submitHandler}>
       <TextInput labelText={'Name'} isError={isError} />
       <TextInput labelText={'Age'} type={'number'} isError={isError} />
       <TextInput labelText={'Email'} type={'email'} isError={isError} />
@@ -33,12 +35,11 @@ const UncontrolledForm = (): JSX.Element => {
           <CheckInput name="sex" type="radio" labelText={val} value={val} />
         ))}
       </GroupInput>
-      <button
+      <TextInput labelText={'Image file'} type={'file'} isError={isError} />
+      <SubmitButton
         type={'button'}
         onClick={() => setError((prevState) => !prevState)}
-      >
-        Submit
-      </button>
+      />
     </form>
   );
 };

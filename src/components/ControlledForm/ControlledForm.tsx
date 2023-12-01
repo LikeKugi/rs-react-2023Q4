@@ -6,8 +6,15 @@ import styles from './ControlledForm.module.scss';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema, TFormState } from '~/utils/formSchema';
+import { useAppDispatch } from '@/store';
+import { useNavigate } from 'react-router-dom';
+import { addControlledFormData } from '@/store/formDataSlice';
+import { RoutesConstants } from '@/constants';
+import { convertFormDataToReduxStateObject } from '@/utils/convertFormDataToReduxStateObject';
 
 const ControlledForm = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
     control,
     formState: { errors },
@@ -26,8 +33,10 @@ const ControlledForm = () => {
       image: '',
     },
   });
-  const submitHandler = (data: TFormState) => {
-    console.log(data);
+  const submitHandler = async (data: TFormState) => {
+    const toReduxObj = await convertFormDataToReduxStateObject(data);
+    dispatch(addControlledFormData(toReduxObj));
+    navigate(RoutesConstants.INDEX);
   };
 
   return (

@@ -27,7 +27,6 @@ export const formSchema = yup.object({
     .minSymbols(1, 'Must contain symbol'),
   confirmPassword: yup
     .string()
-    .required('You must confirm password')
     .oneOf([yup.ref('password'), ''], 'Passwords must match')
     .required('Confirm Password is required'),
   gender: yup

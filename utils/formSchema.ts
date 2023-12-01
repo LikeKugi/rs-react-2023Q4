@@ -3,6 +3,9 @@ import * as yup from 'yup';
 import YupPassword from 'yup-password';
 YupPassword(yup);
 
+const FILE_SIZE = 1024 * 10240;
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+
 export const formSchema = yup.object({
   name: yup
     .string()
@@ -35,6 +38,19 @@ export const formSchema = yup.object({
     .boolean()
     .required('You must accept the terms and conditions')
     .oneOf([true], 'You must accept the terms and conditions'),
+  image: yup
+    .mixed()
+    .required('You need to provide a file')
+    .test('fileSize', 'The file size must be under 10MB', (value) => {
+      return value && (value as File).size <= FILE_SIZE;
+    })
+    .test(
+      'type',
+      'Only the following formats are accepted: .jpeg, .jpg and .png',
+      (value) => {
+        return value && SUPPORTED_FORMATS.includes((value as File).type);
+      },
+    ),
 });
 
 export type TFormState = yup.InferType<typeof formSchema>;

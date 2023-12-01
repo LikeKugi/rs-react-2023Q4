@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import TextInput from '@/components/TextInput/TextInput';
 import GroupInput from '@/components/GroupInput/GroupInput';
 import CheckInput from '@/components/CheckInput/CheckInput';
@@ -24,13 +23,12 @@ const ControlledForm = () => {
       gender: undefined,
       password: '',
       confirmPassword: '',
+      image: '',
     },
   });
   const submitHandler = (data: TFormState) => {
     console.log(data);
   };
-
-  const [isError, setError] = useState(false);
 
   return (
     <form className={styles.controlled} onSubmit={handleSubmit(submitHandler)}>
@@ -154,11 +152,33 @@ const ControlledForm = () => {
           />
         ))}
       </GroupInput>
-      <TextInput labelText={'Image file'} type={'file'} isError={isError} />
-      <SubmitButton
-        type={'submit'}
-        onClick={() => setError((prevState) => !prevState)}
+
+      <Controller
+        control={control}
+        name={'image'}
+        render={({ field: { ref, value, onChange, ...field } }) => (
+          <TextInput
+            inputRef={ref}
+            labelText={'Image file'}
+            type={'file'}
+            isError={!!errors.image?.message}
+            errorMessage={errors.image?.message}
+            {...field}
+            value={
+              value
+                ? 'fileName' in value
+                  ? (value.fileName as string)
+                  : undefined
+                : undefined
+            }
+            onChange={(event) => {
+              onChange(event.target.files ? event.target.files[0] : '');
+            }}
+          />
+        )}
       />
+
+      <SubmitButton type={'submit'} />
     </form>
   );
 };

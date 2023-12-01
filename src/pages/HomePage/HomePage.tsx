@@ -14,11 +14,13 @@ const HomePage = () => {
   return (
     <div>
       Home page
-      {lastAddedData && (
+      {lastAddedData ? (
         <>
           <Heading text="Last Added data" type="h2" />
           <Card data={lastAddedData} isNew />
         </>
+      ) : (
+        <Heading text="No data provided" type="h2" />
       )}
       {!!controlledFormData.length && (
         <>

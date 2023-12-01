@@ -4,11 +4,15 @@ import CheckInput from '@/components/CheckInput/CheckInput';
 import GroupInput from '@/components/GroupInput/GroupInput';
 import styles from './UncontrolledForm.module.scss';
 import SubmitButton from '@/components/SubmitButton/SubmitButton';
+import Autocomplete from '@/components/Autocomplete/Autocomplete';
+import { selectAllCountries, useAppSelector } from '@/store';
 
 const UncontrolledForm = (): JSX.Element => {
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
+  const countriesList = useAppSelector(selectAllCountries);
 
   const [isError, setError] = useState(false);
 
@@ -36,6 +40,7 @@ const UncontrolledForm = (): JSX.Element => {
         ))}
       </GroupInput>
       <TextInput labelText={'Image file'} type={'file'} isError={isError} />
+      <Autocomplete labelText={'Country'} variants={countriesList} />
       <SubmitButton
         type={'button'}
         onClick={() => setError((prevState) => !prevState)}

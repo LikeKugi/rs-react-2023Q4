@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IFromDataSlice } from '@/store/formDataSlice/formDataSlice.types';
-import { TFormState } from '~/utils/formSchema';
+import {
+  IFormReduxState,
+  IFromDataSlice,
+} from '@/store/formDataSlice/formDataSlice.types';
 import { RootState } from '@/store';
 
 const initialState: IFromDataSlice = {
@@ -13,12 +15,15 @@ export const formDataSlice = createSlice({
   name: 'formData',
   initialState,
   reducers: {
-    addControlledFormData: (state, action: PayloadAction<TFormState>) => {
+    addControlledFormData: (state, action: PayloadAction<IFormReduxState>) => {
       state.controlled.push(action.payload);
       state.lastAdded = action.payload;
       return state;
     },
-    addUncontrolledFormData: (state, action: PayloadAction<TFormState>) => {
+    addUncontrolledFormData: (
+      state,
+      action: PayloadAction<IFormReduxState>,
+    ) => {
       state.uncontrolled.push(action.payload);
       state.lastAdded = action.payload;
       return state;

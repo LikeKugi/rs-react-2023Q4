@@ -6,14 +6,15 @@ import {
 } from '@/store/formDataSlice';
 import Card from '@/components/Card/Card';
 import Heading from '@/components/Heading/Heading';
+import styles from './HomePage.module.scss';
 
 const HomePage = () => {
   const lastAddedData = useAppSelector(selectLastAddedFormData);
   const controlledFormData = useAppSelector(selectControlledFormData);
   const uncontrolledFormData = useAppSelector(selectUncontrolledFormData);
   return (
-    <div>
-      Home page
+    <div className={styles.home}>
+      <Heading text="Data from all forms" />
       {lastAddedData ? (
         <>
           <Heading text="Last Added data" type="h2" />
@@ -25,16 +26,16 @@ const HomePage = () => {
       {!!controlledFormData.length && (
         <>
           <Heading text="Data from controlled form" type="h2" />
-          {controlledFormData.map((item) => (
-            <Card data={item} />
+          {controlledFormData.map((item, index) => (
+            <Card key={`c${index}`} data={item} />
           ))}
         </>
       )}
-      {!!controlledFormData.length && (
+      {!!uncontrolledFormData.length && (
         <>
           <Heading text="Data from uncontrolled form" type="h2" />
-          {uncontrolledFormData.map((item) => (
-            <Card data={item} />
+          {uncontrolledFormData.map((item, index) => (
+            <Card key={`u${index}`} data={item} />
           ))}
         </>
       )}

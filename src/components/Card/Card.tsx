@@ -27,6 +27,9 @@ const Card: FC<IFormResultProps> = ({ data, isNew }): JSX.Element => {
           <strong>Confirm password:</strong> {data.confirmPassword}
         </p>
         <p className={styles.card__line}>
+          <strong>Country:</strong> {data.country}
+        </p>
+        <p className={styles.card__line}>
           <strong>Gender:</strong> {data.gender}
         </p>
         <p className={styles.card__line}>

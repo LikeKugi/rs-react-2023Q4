@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 
 import YupPassword from 'yup-password';
+import { COUNTRIES } from '@/constants';
 YupPassword(yup);
 
 const FILE_SIZE = 1024 * 10240;
@@ -49,6 +50,13 @@ export const formSchema = yup.object({
       (value) => {
         return value && SUPPORTED_FORMATS.includes((value as File).type);
       },
+    ),
+  country: yup
+    .string()
+    .required('Country is required')
+    .oneOf(
+      COUNTRIES.map((data) => data.name).concat(''),
+      'It Should be valid country name',
     ),
 });
 

@@ -6,15 +6,17 @@ import styles from './ControlledForm.module.scss';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formSchema, TFormState } from '~/utils/formSchema';
-import { useAppDispatch } from '@/store';
+import { selectAllCountries, useAppDispatch, useAppSelector } from '@/store';
 import { useNavigate } from 'react-router-dom';
 import { addControlledFormData } from '@/store/formDataSlice';
 import { RoutesConstants } from '@/constants';
 import { convertFormDataToReduxStateObject } from '@/utils/convertFormDataToReduxStateObject';
+import Autocomplete from '@/components/Autocomplete/Autocomplete';
 
 const ControlledForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const countriesList = useAppSelector(selectAllCountries);
   const {
     control,
     formState: { errors },
@@ -31,6 +33,7 @@ const ControlledForm = () => {
       password: '',
       confirmPassword: '',
       image: '',
+      country: '',
     },
   });
   const submitHandler = async (data: TFormState) => {
@@ -120,25 +123,22 @@ const ControlledForm = () => {
         )}
       />
 
-      <GroupInput
-        groupLabel={'T&C Terms'}
-        errorMessage={errors.accept?.message}
-        isError={!!errors.accept?.message}
-      >
-        <Controller
-          name={'accept'}
-          control={control}
-          render={({ field: { ref, value, ...field } }) => (
-            <CheckInput
-              inputRef={ref}
-              type="checkbox"
-              checked={value}
-              labelText="Accept T&C"
-              {...field}
-            />
-          )}
-        />
-      </GroupInput>
+      <Controller
+        control={control}
+        name={'country'}
+        render={({ field: { ref, ...field } }) => (
+          <Autocomplete
+            inputRef={ref}
+            isError={!!errors.country?.message}
+            errorMessage={errors.country?.message}
+            labelText={'Country'}
+            variants={countriesList}
+            {...field}
+            autoComplete={'off'}
+          />
+        )}
+      />
+
       <GroupInput
         groupLabel={'Sex'}
         isError={!!errors.gender?.message}
@@ -186,6 +186,26 @@ const ControlledForm = () => {
           />
         )}
       />
+
+      <GroupInput
+        groupLabel={'T&C Terms'}
+        errorMessage={errors.accept?.message}
+        isError={!!errors.accept?.message}
+      >
+        <Controller
+          name={'accept'}
+          control={control}
+          render={({ field: { ref, value, ...field } }) => (
+            <CheckInput
+              inputRef={ref}
+              type="checkbox"
+              checked={value}
+              labelText="Accept T&C"
+              {...field}
+            />
+          )}
+        />
+      </GroupInput>
 
       <SubmitButton type={'submit'} />
     </form>

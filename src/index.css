@@ -1,0 +1,50 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --color-white: #fefefe;
+  --color-text: rgba(255, 255, 255, 0.87);
+  --color-background: #242424;
+  --color-border-hover: #646cff;
+
+  --color-hover: #dc143c;
+  --color-active: #2e8b57;
+
+  --color-error: #c62828;
+  --color-success: #198754;
+  --color-success-hover: #03876c;
+
+  color-scheme: light dark;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.active {
+  border-block-end-color: var(--color-active);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-text: #213547;
+    --color-background: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+}

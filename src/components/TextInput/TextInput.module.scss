@@ -1,0 +1,30 @@
+.textinput {
+  padding-inline: 0.5rem;
+  &__box {
+    position: relative;
+    padding-block: 0.7rem;
+  }
+  &__error {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0.5rem;
+    margin-block: 0;
+    font-size: 0.8rem;
+    color: var(--color-error);
+  }
+  &__label {
+    padding-inline-start: 0.5rem;
+  }
+  &__input {
+    display: block;
+    min-width: 0;
+    width: 100%;
+    padding-block: 0.7rem;
+    padding-inline: 1.4rem;
+    border-radius: 0.7rem;
+
+    &--error {
+      border-color: var(--color-error);
+    }
+  }
+}

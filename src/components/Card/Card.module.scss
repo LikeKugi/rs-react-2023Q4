@@ -1,0 +1,31 @@
+.card {
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  display: flex;
+  border: 2px solid var(--color-text);
+  border-radius: 1rem;
+
+  &--new {
+    border-color: var(--color-success);
+  }
+
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+  }
+
+  &__content {
+    flex: 1 1 50%;
+    flex-basis: 50%;
+  }
+
+  &__line {
+    border-bottom: 1px dashed var(--color-text);
+  }
+
+  &__img {
+    width: clamp(250px, 100%, 550px);
+    object-fit: contain;
+    flex: 1 1 50%;
+    flex-basis: 50%;
+  }
+}

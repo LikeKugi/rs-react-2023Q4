@@ -19,7 +19,7 @@ const ControlledForm = () => {
   const countriesList = useAppSelector(selectAllCountries);
   const {
     control,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     handleSubmit,
   } = useForm<TFormState>({
     resolver: yupResolver(formSchema),
@@ -207,7 +207,7 @@ const ControlledForm = () => {
         />
       </GroupInput>
 
-      <SubmitButton type={'submit'} />
+      <SubmitButton disabled={!isDirty || !isValid} type={'submit'} />
     </form>
   );
 };

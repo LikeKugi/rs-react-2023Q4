@@ -9,7 +9,7 @@
     border-color: var(--color-success);
   }
 
-  @media screen and (max-width: 625px) {
+  @media screen and (max-width: 700px) {
     flex-direction: column;
   }
 
@@ -23,6 +23,8 @@
   }
 
   &__img {
+    width: clamp(250px, 100%, 550px);
+    object-fit: contain;
     flex: 1 1 50%;
     flex-basis: 50%;
   }

@@ -29,4 +29,9 @@
   &:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
   }
+
+  &:disabled {
+    background-color: slategray;
+    cursor: not-allowed;
+  }
 }
